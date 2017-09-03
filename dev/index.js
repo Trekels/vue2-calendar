@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 
-import calendar from '../src/components/calendar.vue';
+let calendar = require('../dist/vue-calendar');
 
 Vue.component('vue-calendar', calendar);
 

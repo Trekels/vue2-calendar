@@ -1,13 +1,12 @@
 {
   "name": "vue2-simple-calendar",
-  "version": "1.0.2",
+  "version": "0.0.3",
   "license": "MIT",
-  "description": "An event clendar component",
-  "author": "Yappa webfolks",
+  "description": "An event calendar component",
+  "author": "Trekels Vincent",
   "main": "dist/vue-calendar.js",
   "files": [
     "dist/vue-calendar.js",
-    "dist/vue-calendar.min.js",
     "src"
   ],
   "scripts": {

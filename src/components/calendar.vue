@@ -46,7 +46,7 @@
         props : {
             events : {
               type : Array,
-              default : []
+              default : () => []
             },
             locale : {
               type : String,
