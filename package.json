@@ -5,6 +5,8 @@
   "description": "An event calendar component",
   "author": "Trekels Vincent",
   "main": "dist/vue-calendar.js",
+  "repository": "https://github.com/Trekels/vue2-calendar",
+  "bugs": "https://github.com/Trekels/vue2-calendar/issues",
   "files": [
     "dist/vue-calendar.js",
     "src"

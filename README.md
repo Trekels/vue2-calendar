@@ -1,5 +1,8 @@
 ## Vue2 simple event calendar.
 
+[![npm](https://img.shields.io/npm/v/vue2-simple-calendar.svg?maxAge=2592000?style=flat-square)]()
+[![npm](https://img.shields.io/npm/dt/vue2-simple-calendar.svg?maxAge=2592000?style=flat-square)]()
+
 This is a simple and small event calendar component for Vue js. Though there already a few other
 calendar components I made another to fill my need of a simple, light weight yet configurable component.
 
