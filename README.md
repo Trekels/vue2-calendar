@@ -6,6 +6,34 @@ calendar components I made another to fill my need of a simple, light weight yet
 Most of the logic is based on the calendar component of  [Vue full calendar](https://github.com/Wanderxx/vue-fullcalendar)
 With the difference of more configuration options and lightweight.
 
+### Installing
+
+Add the package using npm.
+
+```
+ npm install vue2-simple-calendar
+```
+
+Use the component in your project. You can register it globally in your application as shown below or locally in a component
+
+```
+import Vue from 'vue'
+import myApp from './myApp'
+
+import vueCalendar from 'vue2-simple-calendar'
+
+Vue.component('vue-calendar', vueCalendar)
+
+new Vue({
+  el : '#app',
+  render: h => h(myApp),
+  template : '<App/>',
+  components : {
+    App
+  }
+})
+```
+
 ### Component props
 
 | Prop                  | Type            | Default     | Description                              |
