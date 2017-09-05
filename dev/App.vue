@@ -1,5 +1,8 @@
 <template>
-    <vue-calendar :events="events">
+    <vue-calendar
+            :events="events"
+            @monthChanged="monthChanged"
+    >
     </vue-calendar>
 </template>
 <script>
@@ -9,6 +12,11 @@
     	data: function () {
     		return {
     			events: []
+        }
+      },
+      methods: {
+    	  monthChanged: function (start, end) {
+          // Month change event
         }
       },
     	created: function () {

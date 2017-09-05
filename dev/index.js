@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import App from './App.vue';
 
-let calendar = require('../dist/vue-calendar');
+Vue.config.productionTip = false;
 
+let calendar = require('../src/index');
 Vue.component('vue-calendar', calendar);
 
 new Vue({

@@ -79,11 +79,11 @@
             	type: Object
             }
         },
-        data: function () {
+        data () {
           return {
           	showModal: false,
             currentEventsList: null,
-            currentMonthStart: dateHelper.firstDateOfMonth()
+            currentMonthStart: dateHelper.firstDateOfMonth(),
           }
         },
         computed: {
@@ -94,7 +94,7 @@
         methods: {
           changeMonth: function (monthStart) {
             this.currentMonthStart = monthStart;
-            let monthEnd = dateHelper.lastDateOfMonth(monthStart);
+            let monthEnd = dateHelper.lastDateOfMonth(new Date(monthStart));
 	          this.$emit('monthChanged', monthStart, monthEnd);
           },
           dayClick: function (day) {
@@ -121,6 +121,9 @@
           'calendar-header': calHeader,
           'events-box': eventsBox,
           'events-modal': eventsModal,
+        },
+        mounted () {
+          this.changeMonth(dateHelper.firstDateOfMonth());
         }
     }
 </script>
