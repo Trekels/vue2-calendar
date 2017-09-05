@@ -92,9 +92,10 @@
           }
         },
         methods: {
-          changeMonth: function (newMonth) {
-            this.currentMonthStart = newMonth;
-	          this.$emit('monthChanged', newMonth);
+          changeMonth: function (monthStart) {
+            this.currentMonthStart = monthStart;
+            let monthEnd = dateHelper.lastDateOfMonth(monthStart);
+	          this.$emit('monthChanged', monthStart, monthEnd);
           },
           dayClick: function (day) {
             this.$emit('dayClicked', day);

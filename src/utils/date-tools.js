@@ -11,6 +11,16 @@ const firstDateOfMonth = (date) => {
 };
 
 /**
+ * Returns the first day of the current or given month
+ * @param date
+ * @returns {Date}
+ */
+const lastDateOfMonth = (date) => {
+	if (!date) date = new Date();
+	return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+};
+
+/**
  * Returns the date of the first week day, default the week starts sunday
  * Pass in an offset 0 - 6 to set the start of the week to an other day.
  * 0 = sunday, 1 = monday, ... 6 = saturday
@@ -128,6 +138,7 @@ export default {
 	eventsForDate,
 	buildCalendar,
 	localMonthName,
+  lastDateOfMonth,
 	firstDateOfMonth,
 }
 

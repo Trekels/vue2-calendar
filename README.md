@@ -50,8 +50,30 @@ new Vue({
 
 ### Component events
 
-| Event                 | Output          | Description                  |               
-|-----------------------|-----------------|------------------------------|
-| monthChanged          | Date obj        | First date of new month      |
-| dayClicked            | Day obj         | The obj of the clicked day   |
-| eventClicked          | Event obj       | The obj of the clicked event |
+| Event                 | Output                       | Description                  |               
+|-----------------------|------------------------------|------------------------------|
+| monthChanged          | start and end date of month  | First date of new month      |
+| dayClicked            | Day obj                      | The obj of the clicked day   |
+| eventClicked          | Event obj                    | The obj of the clicked event |
+
+Day object example:
+```
+{
+    weekDay : day,                                                      // number of the week day --> 0..7
+    date : calendarDate,                                                // Full js date object
+    monthDay : calendarDate.getDate(),                                  // Number of day in the month 1...31
+    events: eventsForDate(calendarDate, events),                        // List of events on that day
+    isToday: (calendarDate.setHours(0,0,0,0) === today ),               // If is current day
+    isCurrentMonth: (calendarDate.getMonth() === month.getMonth())      // If is part of the requested month
+}
+```
+
+Event object example:
+```
+{
+    title    : 'FooEvent',
+    start    : '2017-09-01T00:00:00',
+    end      : '2017-09-02T00:00:00',
+    class    : 'testClass',
+},
+```
