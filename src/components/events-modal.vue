@@ -29,7 +29,7 @@
     props: {
     	events: {
     		type: Array,
-    		default: []
+    		default: () => []
       }
     },
     computed: {

@@ -34,7 +34,7 @@
       },
       disabled: {
         type: Object,
-        default: {}
+        default: () => {},
       }
     },
     computed: {
