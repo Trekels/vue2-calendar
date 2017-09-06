@@ -2,6 +2,7 @@
     <div class="vue-calendar">
         <calendar-header
                 :locale="locale"
+                :disabled="disabled"
                 :full-month-names="fullMonthNames"
                 :first-day-of-month="currentMonthStart"
                 @changeMonth="changeMonth"

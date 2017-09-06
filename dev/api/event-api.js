@@ -6,8 +6,8 @@ export default {
 		return [
 			{
 				title    : 'FooEvent',
-				start    : '2017-09-01T00:00:00',
-				end      : '2017-09-02T00:00:00',
+				start    : '2017-09-01',
+				end      : '2017-09-02',
 				class    : 'testClass',
 			},
 			{

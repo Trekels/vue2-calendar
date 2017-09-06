@@ -5,8 +5,8 @@
             </slot>
         </div>
         <div class="header-center">
-            <span class="prev-month" @click.stop="goPrev"> < </span>
-            <span class="title"> {{title}} </span>
+            <span v-if="!previousMonthDisabled()" class="prev-month" @click.stop="goPrev"> < </span>
+            <span class="title">{{title}} {{ year }}</span>
             <span class="next-month" @click.stop="goNext"> > </span>
         </div>
         <div class="header-right">
@@ -19,20 +19,60 @@
   import dateHelper from '../utils/date-tools';
 
   export default {
-    props: ['locale', 'fullMonthNames', 'firstDayOfMonth'],
+    props: {
+      firstDayOfMonth: {
+        type: Date,
+        required: true,
+      },
+      locale: {
+        type: String,
+        default: 'en'
+      },
+      fullMonthNames: {
+        type: Boolean,
+        default: true
+      },
+      disabled: {
+        type: Object,
+        default: {}
+      }
+    },
     computed: {
       title () {
         return dateHelper.localMonthName(this.locale, this.firstDayOfMonth.getMonth(), this.fullMonthNames);
+      },
+      year () {
+        return this.firstDayOfMonth.getFullYear();
       }
     },
     methods : {
       goPrev () {
-        let newMonth = dateHelper.shiftMonth(this.firstDayOfMonth, 1);
-        this.$emit('changeMonth', newMonth);
+        if (!this.previousMonthDisabled()) {
+          let newMonth = dateHelper.shiftMonth(this.firstDayOfMonth, 1);
+          this.$emit('changeMonth', newMonth);
+        }
       },
       goNext () {
-	      let newMonth = dateHelper.shiftMonth(this.firstDayOfMonth, -1);
-        this.$emit('changeMonth', newMonth);
+        if (!this.nextMonthDisabled) {
+          let newMonth = dateHelper.shiftMonth(this.firstDayOfMonth, -1);
+          this.$emit('changeMonth', newMonth);
+        }
+      },
+      previousMonthDisabled () {
+        if (!this.disabled || !this.disabled.to) {
+          return false;
+        }
+        let d = this.firstDayOfMonth;
+        return this.disabled.to.getMonth() >= d.getMonth() &&
+        this.disabled.to.getFullYear() >= d.getFullYear()
+      },
+      nextMonthDisabled () {
+        if (!this.disabled || !this.disabled.from) {
+          return false;
+        }
+        let d = this.firstDayOfMonth;
+        return this.disabled.from.getMonth() <= d.getMonth() &&
+        this.disabled.from.getFullYear() <= d.getFullYear()
       }
     }
   }

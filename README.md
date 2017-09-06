@@ -77,3 +77,7 @@ Event object example:
     class    : 'testClass',
 },
 ```
+
+### Known issues
+
+The component is still under development so its working could change drastically thought I try to keep it as stable as possible.

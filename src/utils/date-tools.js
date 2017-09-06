@@ -99,11 +99,26 @@ const buildCalendar = (month, events, firstDay) => {
  */
 const eventsForDate = (date, events) => {
 	return events.filter(day => {
-			let start = new Date(day.start);
-			let end = day.end ? new Date(day.end) : new Date(day.start);
+			let start = parseDateString(day.start);
+			let end = day.end ? parseDateString(day.end) : start;
+
+			parseDateString(day.start);
 
 			return (date.getTime() <= end.getTime() && date.getTime() >= start.getTime());
 	});
+};
+
+/**
+ * Pareses a yyyy-mm-dd string if it matches else it just creates a date obj from the string.
+ *
+ * @param dateString
+ * @returns {Date}
+ */
+const parseDateString = (dateString) => {
+  let regEx = /^\d{4}-\d{2}-\d{2}$/;
+  if(!dateString.match(regEx)) return new Date(dateString);
+  let parts = dateString.split('-');
+	return new Date(parts[0], (parts[1] - 1), parts[2]);
 };
 
 /**
