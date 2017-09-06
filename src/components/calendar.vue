@@ -75,9 +75,11 @@
             },
             disabled: {
             	type: Object,
+              default: () => {}
             },
             highlight: {
-            	type: Object
+            	type: Object,
+              default: () => {}
             }
         },
         data () {
