@@ -78,9 +78,12 @@ const buildCalendar = (month, events, firstDay) => {
 	      weekDay : day,
 	      date : calendarDate,
 		    monthDay : calendarDate.getDate(),
-	      events: eventsForDate(calendarDate, events),
+        isSunday: calendarDate.getDay() === 0,
+        isSaturday: calendarDate.getDay() === 6,
+        events: eventsForDate(calendarDate, events),
 	      isToday: (calendarDate.setHours(0,0,0,0) === today ),
-	      isCurrentMonth: (calendarDate.getMonth() === month.getMonth())
+	      isCurrentMonth: (calendarDate.getMonth() === month.getMonth()),
+        isWeekend: calendarDate.getDay() === 0 || calendarDate.getDay() === 6
 	    });
 
       calendarDate.setDate(calendarDate.getDate() + 1);

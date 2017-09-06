@@ -16,10 +16,16 @@
 
             <div class="days-container">
                 <div class="week-row" v-for="week in calendar">
-                    <div class="week-day-cell" :class="{'today': day.isToday, 'not-current-month': !day.isCurrentMonth}"
-                         v-for="day in week"
-                         @click.stop="dayClick(day)"
-                    >
+                    <div v-for="day in week"
+                         class="week-day-cell"
+                         :class="{  'today': day.isToday,
+                                    'weekend': day.isWeekend,
+                                    'saturday': day.isSaturday,
+                                    'sunday': day.isSunday,
+                                    'disabled': isDayDisabled(day),
+                                    'highlighted': isDayHighlighted(day),
+                                    'not-current-month': !day.isCurrentMonth }"
+                         @click.stop="dayClick(day)">
                         <div class="day-number">
                             {{ day.monthDay }}
                         </div>
@@ -38,10 +44,10 @@
     </div>
 </template>
 <script>
-	  import dateHelper from '../utils/date-tools';
-    import calHeader from './calendar-header.vue';
     import eventsBox from './events-box.vue';
     import eventsModal from './events-modal.vue';
+    import calHeader from './calendar-header.vue';
+    import dateHelper from '../utils/calendar-helpers';
 
     export default {
         props : {
@@ -112,6 +118,32 @@
           },
           hideEventsModal: function () {
             this.showModal = false;
+          },
+          isDayHighlighted (date) {
+            if (!this.highlight) return false;
+
+            if (this.highlight.dates) {
+              this.highlight.dates.forEach((d) => {
+                if (date.date.toDateString() === d.toDateString()) return true;
+              });
+            }
+
+            if (this.highlight.to && date.date < this.highlight.to) return true;
+            if (this.highlight.from && date.date > this.highlight.from) return true;
+            if (this.highlight.days && this.highlight.days.indexOf(date.getDay) !== -1) return true;
+          },
+          isDayDisabled (date) {
+            if (!this.disabled) return false;
+
+            if (this.disabled.dates) {
+              this.disabled.dates.forEach((d) => {
+                if (date.date.toDateString() === d.toDateString()) return true;
+              });
+            }
+
+            if (this.disabled.to && date.date < this.disabled.to) return true;
+            if (this.disabled.from && date.date > this.disabled.from) return true;
+            if (this.disabled.days && this.disabled.days.indexOf(date.getDay) !== -1) return true;
           }
         },
         filters: {
@@ -121,9 +153,9 @@
             }
         },
         components: {
-          'calendar-header': calHeader,
           'events-box': eventsBox,
           'events-modal': eventsModal,
+          'calendar-header': calHeader,
         },
         mounted () {
           this.changeMonth(dateHelper.firstDateOfMonth());

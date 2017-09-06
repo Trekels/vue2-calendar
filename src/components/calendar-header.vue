@@ -7,7 +7,7 @@
         <div class="header-center">
             <span v-if="!previousMonthDisabled()" class="prev-month" @click.stop="goPrev"> < </span>
             <span class="title">{{title}} {{ year }}</span>
-            <span class="next-month" @click.stop="goNext"> > </span>
+            <span v-if="!nextMonthDisabled()" class="next-month" @click.stop="goNext"> > </span>
         </div>
         <div class="header-right">
             <slot name="header-right">
@@ -16,7 +16,7 @@
     </div>
 </template>
 <script type="text/babel">
-  import dateHelper from '../utils/date-tools';
+  import dateHelper from '../utils/calendar-helpers';
 
   export default {
     props: {
