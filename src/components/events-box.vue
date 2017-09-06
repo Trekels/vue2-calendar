@@ -19,7 +19,7 @@
   	props: {
   		events: {
   			type: Array,
-        default: []
+        default: () => []
       },
       showLimit: {
   			type: Number,

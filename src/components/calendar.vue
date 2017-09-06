@@ -73,14 +73,8 @@
             	type: String,
               default: 'Show more'
             },
-            disabled: {
-            	type: Object,
-              default: () => {}
-            },
-            highlight: {
-            	type: Object,
-              default: () => {}
-            }
+            disabled: {},
+            highlight: {}
         },
         data () {
           return {

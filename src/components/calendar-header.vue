@@ -32,10 +32,7 @@
         type: Boolean,
         default: true
       },
-      disabled: {
-        type: Object,
-        default: () => {},
-      }
+      disabled: {}
     },
     computed: {
       title () {
