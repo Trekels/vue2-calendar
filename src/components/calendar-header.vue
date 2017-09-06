@@ -53,7 +53,7 @@
         }
       },
       goNext () {
-        if (!this.nextMonthDisabled) {
+        if (!this.nextMonthDisabled()) {
           let newMonth = dateHelper.shiftMonth(this.firstDayOfMonth, -1);
           this.$emit('changeMonth', newMonth);
         }
@@ -64,7 +64,7 @@
         }
         let d = this.firstDayOfMonth;
         return this.disabled.to.getMonth() >= d.getMonth() &&
-        this.disabled.to.getFullYear() >= d.getFullYear()
+               this.disabled.to.getFullYear() >= d.getFullYear()
       },
       nextMonthDisabled () {
         if (!this.disabled || !this.disabled.from) {
@@ -72,7 +72,7 @@
         }
         let d = this.firstDayOfMonth;
         return this.disabled.from.getMonth() <= d.getMonth() &&
-        this.disabled.from.getFullYear() <= d.getFullYear()
+               this.disabled.from.getFullYear() <= d.getFullYear()
       }
     }
   }

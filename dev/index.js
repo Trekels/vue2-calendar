@@ -3,7 +3,7 @@ import App from './App.vue';
 
 Vue.config.productionTip = false;
 
-let calendar = require('../dist/vue-calendar');
+let calendar = require('../src/index');
 Vue.component('vue-calendar', calendar);
 
 new Vue({
