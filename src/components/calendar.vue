@@ -205,7 +205,6 @@
         color: rgb(195,195,195);
     }
     .week-day-cell.today > .day-number{
-        font-size: 25px;
         font-weight: bold;
         color: red;
     }
