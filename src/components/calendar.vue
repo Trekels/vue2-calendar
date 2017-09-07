@@ -135,12 +135,16 @@
           isDayDisabled (date) {
             if (!this.disabled) return false;
 
+            let isDisabled = false;
             if (this.disabled.dates) {
               this.disabled.dates.forEach((d) => {
-                if (date.date.toDateString() === d.toDateString()) return true;
+                if (date.date.toDateString() === d.toDateString()) {
+                  isDisabled = true; return true;
+                }
               });
             }
 
+            if (isDisabled) return true;
             if (this.disabled.to && date.date < this.disabled.to) return true;
             if (this.disabled.from && date.date > this.disabled.from) return true;
             if (this.disabled.days && this.disabled.days.indexOf(date.getDay) !== -1) return true;
