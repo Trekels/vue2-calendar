@@ -88,7 +88,7 @@ const buildCalendar = (month, events, firstDay) => {
 
       calendarDate.setDate(calendarDate.getDate() + 1);
       // Object needs to be copied to prevent the days linking back to the same instance
-      calendarDate = new Date(calendarDate.getTime());
+      calendarDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), calendarDate.getDate());
     }
 
     calendar.push(week);

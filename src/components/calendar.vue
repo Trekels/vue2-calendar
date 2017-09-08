@@ -93,6 +93,7 @@
           	showModal: false,
             currentEventsList: null,
             disabledDays: this.disabled,
+            highlightDays: this.highlight,
             currentMonthStart: dateHelper.firstDateOfMonth()
           }
         },
@@ -102,8 +103,11 @@
           }
         },
         watch: {
-          disabled (newDays) {
-            this.disabledDays = newDays;
+          disabled (newObj) {
+            this.disabledDays = newObj;
+          },
+          highlight (newObj) {
+            this.highlightDays = newObj;
           }
         },
         methods: {
@@ -126,17 +130,17 @@
             this.showModal = false;
           },
           isDayHighlighted (date) {
-            if (!this.highlight) return false;
+            if (!this.highlightDays) return false;
 
-            if (this.highlight.dates) {
-              this.highlight.dates.forEach((d) => {
+            if (this.highlightDays.dates) {
+              this.highlightDays.dates.forEach((d) => {
                 if (date.date.toDateString() === d.toDateString()) return true;
               });
             }
 
-            if (this.highlight.to && date.date < this.highlight.to) return true;
-            if (this.highlight.from && date.date > this.highlight.from) return true;
-            if (this.highlight.days && this.highlight.days.indexOf(date.getDay) !== -1) return true;
+            if (this.highlightDays.to && date.date < this.highlightDays.to) return true;
+            if (this.highlightDays.from && date.date > this.highlightDays.from) return true;
+            if (this.highlightDays.days && this.highlightDays.days.indexOf(date.getDay) !== -1) return true;
           },
           isDayDisabled (date) {
             if (!this.disabledDays) return false;
@@ -153,7 +157,7 @@
             if (isDisabledDays) return true;
             if (this.disabledDays.to && date.date < this.disabledDays.to) return true;
             if (this.disabledDays.from && date.date > this.disabledDays.from) return true;
-            if (this.disabledDays.days && this.disabledDays.days.indexOf(date.getDay) !== -1) return true;
+            return (this.disabledDays.days && this.disabledDays.days.indexOf(date.getDay) !== -1);
           }
         },
         filters: {
