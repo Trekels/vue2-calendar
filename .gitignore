@@ -19,37 +19,6 @@ GitHub.sublime-settings
 ### PhpStorm ###
 .idea
 
-## File-based project format:
-*.iws
-
-## Plugin-specific files
-/out/
-.idea_modules/
-atlassian-ide-plugin.xml
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
-
-
-### macOS ###
-*.DS_Store
-.AppleDouble
-.LSOverride
-._*
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
 ### Sass ###
 *.sass-cache/
 *.css.map

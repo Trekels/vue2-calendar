@@ -2,7 +2,7 @@
     <div class="vue-calendar">
         <calendar-header
                 :locale="locale"
-                :disabled="disabled"
+                :disabled="disabledDays"
                 :full-month-names="fullMonthNames"
                 :first-day-of-month="currentMonthStart"
                 @changeMonth="changeMonth"
@@ -92,12 +92,18 @@
           return {
           	showModal: false,
             currentEventsList: null,
-            currentMonthStart: dateHelper.firstDateOfMonth(),
+            disabledDays: this.disabled,
+            currentMonthStart: dateHelper.firstDateOfMonth()
           }
         },
         computed: {
           calendar () {
             return dateHelper.buildCalendar(this.currentMonthStart, this.events, this.firstDay);
+          }
+        },
+        watch: {
+          disabled (newDays) {
+            this.disabledDays = newDays;
           }
         },
         methods: {
@@ -133,21 +139,21 @@
             if (this.highlight.days && this.highlight.days.indexOf(date.getDay) !== -1) return true;
           },
           isDayDisabled (date) {
-            if (!this.disabled) return false;
+            if (!this.disabledDays) return false;
 
-            let isDisabled = false;
-            if (this.disabled.dates) {
-              this.disabled.dates.forEach((d) => {
+            let isDisabledDays = false;
+            if (this.disabledDays.dates) {
+              this.disabledDays.dates.forEach((d) => {
                 if (date.date.toDateString() === d.toDateString()) {
-                  isDisabled = true; return true;
+                  isDisabledDays = true; return true;
                 }
               });
             }
 
-            if (isDisabled) return true;
-            if (this.disabled.to && date.date < this.disabled.to) return true;
-            if (this.disabled.from && date.date > this.disabled.from) return true;
-            if (this.disabled.days && this.disabled.days.indexOf(date.getDay) !== -1) return true;
+            if (isDisabledDays) return true;
+            if (this.disabledDays.to && date.date < this.disabledDays.to) return true;
+            if (this.disabledDays.from && date.date > this.disabledDays.from) return true;
+            if (this.disabledDays.days && this.disabledDays.days.indexOf(date.getDay) !== -1) return true;
           }
         },
         filters: {
