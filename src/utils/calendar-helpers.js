@@ -86,9 +86,9 @@ const buildCalendar = (month, events, firstDay) => {
         isWeekend: calendarDate.getDay() === 0 || calendarDate.getDay() === 6
 	    });
 
-      calendarDate.setDate(calendarDate.getDate() + 1);
       // Object needs to be copied to prevent the days linking back to the same instance
       calendarDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), calendarDate.getDate());
+      calendarDate.setDate(calendarDate.getDate() + 1);
     }
 
     calendar.push(week);
