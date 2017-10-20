@@ -133,9 +133,7 @@
             if (!this.highlightDays) return false;
 
             if (this.highlightDays.dates) {
-              this.highlightDays.dates.forEach((d) => {
-                if (date.date.toDateString() === d.toDateString()) return true;
-              });
+              return this.highlightDays.dates.some(d => date.date.toDateString() === d.toDateString());
             }
 
             if (this.highlightDays.to && date.date < this.highlightDays.to) return true;
