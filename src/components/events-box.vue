@@ -5,7 +5,9 @@
          v-show="index <= (showLimit - 1)"
          @click.stop="eventClick(event)"
     >
-     <div class="event"> {{ event.title }} </div>
+     <div class="event">
+       <slot :title="event.title"></slot>
+     </div>
     </div>
     <p v-if="events.length > showLimit" class="more-link" @click.stop="selectDay">
       {{ moreText }}
