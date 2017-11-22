@@ -6,7 +6,7 @@
          @click.stop="eventClick(event)"
     >
      <div class="event">
-       <slot :item="event.title"></slot>
+       <slot :title="event.title"></slot>
      </div>
     </div>
     <p v-if="events.length > showLimit" class="more-link" @click.stop="selectDay">

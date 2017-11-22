@@ -36,7 +36,7 @@
                                 @showMore="showEventsModal"
                         >
                             <template slot-scope="event">
-                                <slot :event="event">{{ event.item }}</slot>
+                                <slot :event="event">{{ event.title }}</slot>
                             </template>
                         </events-box>
                     </div>
