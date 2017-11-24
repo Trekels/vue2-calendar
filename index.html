@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Development page</title>
-    </head>
-    <body>
-        <div id="app"></div>
-    </body>
+  <head>
+      <title>Vue2 Calendar</title>
+  </head>
+  <body>
+    <div id="app">
+      <vue-calendar
+        :first-day="1"
+      >
+      </vue-calendar>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="http://cdn.rawgit.com/Trekels/vue2-calendar/master/dist/vue-calendar.js"></script>
+    <script>
+      Vue.component('vue-calendar', vueCalendar);
+
+      var app = new Vue({
+        el: '#app',
+        data: {}
+      });
+    </script>
+  </body>
 </html>

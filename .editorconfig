@@ -1,0 +1,14 @@
+; top-most EditorConfig file
+root = true
+
+; Unix-style newlines
+[*]
+end_of_line = LF
+
+[*.{yml}]
+indent_style = space
+indent_size = 4
+
+[*.{html,js,vue}]
+indent_style = space
+indent_size = 2

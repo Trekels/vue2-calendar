@@ -1,4 +1,6 @@
 ## Vue2 simple event calendar.
+> [Calendar demo](https://trekels.github.io/vue2-calendar/)
+------------------------------
 
 [![npm](https://img.shields.io/npm/v/vue2-simple-calendar.svg?maxAge=2592000?style=flat-square)]()
 [![npm](https://img.shields.io/npm/dt/vue2-simple-calendar.svg?maxAge=2592000?style=flat-square)]()
