@@ -1,20 +1,22 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const config = require('../config/prod.env');
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
 module.exports = {
   entry: {
-    app: './src/index.js'
+    app: config.prod.entry,
   },
   output: {
-    filename: 'vue-calendar.js',
+    filename: config.prod.lib,
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: config.prod.extensions,
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
     }
