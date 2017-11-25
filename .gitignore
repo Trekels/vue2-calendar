@@ -17,3 +17,6 @@ yarn-error.log*
 
 ## npm ##
 node_modules/
+
+## Jest ##
+coverage/

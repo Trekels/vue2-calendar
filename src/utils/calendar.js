@@ -161,6 +161,3 @@ export default {
   lastDateOfMonth,
 	firstDateOfMonth,
 }
-
-
-

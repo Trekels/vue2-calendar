@@ -51,7 +51,7 @@
     import eventsBox from './events-box.vue';
     import eventsModal from './events-modal.vue';
     import calHeader from './calendar-header.vue';
-    import dateHelper from '../utils/calendar-helpers';
+    import dateHelper from '../utils/calendar';
 
     export default {
         props : {

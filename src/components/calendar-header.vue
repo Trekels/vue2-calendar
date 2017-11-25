@@ -16,7 +16,7 @@
     </div>
 </template>
 <script type="text/babel">
-  import dateHelper from '../utils/calendar-helpers';
+  import dateHelper from '../utils/calendar';
 
   export default {
     props: {
