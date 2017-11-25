@@ -1,21 +1,23 @@
 <template>
-    <div class="calendar-header">
-        <div class="header-left">
-            <slot name="header-left">
-            </slot>
-        </div>
-        <div class="header-center">
-            <span v-if="!previousMonthDisabled()" class="prev-month" @click.stop="goPrev"> < </span>
-            <span class="title">{{title}} {{ year }}</span>
-            <span v-if="!nextMonthDisabled()" class="next-month" @click.stop="goNext"> > </span>
-        </div>
-        <div class="header-right">
-            <slot name="header-right">
-            </slot>
-        </div>
+  <div class="calendar-header">
+    <div class="header-left">
+      <slot name="header-left">
+      </slot>
     </div>
+    <div class="header-center">
+      <span v-if="!previousMonthDisabled()" class="prev-month" @click.stop="goPrev"> &lt; </span>
+
+      <span class="title">{{ title }} {{ year }}</span>
+
+      <span v-if="!nextMonthDisabled()" class="next-month" @click.stop="goNext"> &gt; </span>
+    </div>
+    <div class="header-right">
+      <slot name="header-right">
+      </slot>
+    </div>
+  </div>
 </template>
-<script type="text/babel">
+<script>
   import dateHelper from '../utils/calendar';
 
   export default {
@@ -23,10 +25,6 @@
       firstDayOfMonth: {
         type: Date,
         required: true,
-      },
-      locale: {
-        type: String,
-        default: 'en'
       },
       fullMonthNames: {
         type: Boolean,
@@ -74,6 +72,9 @@
         return this.disabled.from.getMonth() <= d.getMonth() &&
                this.disabled.from.getFullYear() <= d.getFullYear()
       }
+    },
+    mounted() {
+
     }
   }
 </script>

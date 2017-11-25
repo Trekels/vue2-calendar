@@ -136,7 +136,7 @@ const parseDateString = (dateString) => {
  */
 const localMonthName = (locale, month, fullName = false) => {
 	let langSet = languages[locale];
-	return fullName ? langSet.monthNameLong[month]: langSet.monthNameShort[month];
+	// return fullName ? langSet.monthNameLong[month]: langSet.monthNameShort[month];
 };
 
 /**

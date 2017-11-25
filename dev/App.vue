@@ -1,13 +1,5 @@
 <template>
-    <vue-calendar
-            :first-day="1"
-            :events="events"
-            :disabled="disabled"
-            @dayCLicked="dayClicked"
-            @eventCLicked="eventClicked"
-            @monthChanged="monthChanged"
-    >
-    </vue-calendar>
+  <vue-calendar></vue-calendar>
 </template>
 <script>
     import eventApi from './api/event-api';
