@@ -40,5 +40,10 @@
 import dateHelper from '../utils/calendar';
 
 export default {
+  computed: {
+    calendar () {
+      return dateHelper.buildCalendar(this.currentMonthStart, this.events, this.firstDay);
+    }
+  },
 }
 </script>

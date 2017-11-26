@@ -2,9 +2,7 @@
   <div :class="wrapperClass">
     <calendar-header
       :disabled="disabledDays"
-      :full-month-names="fullMonthNames"
-      :first-day-of-month="currentMonthStart"
-      @changeMonth="changeMonth"
+      :month-start="currentMonthStart"
     >
     </calendar-header>
 
@@ -25,14 +23,6 @@
       events : {
         type : Array,
         default : () => []
-      },
-      fullMonthNames:  {
-        type: Boolean,
-        default: true
-      },
-      fullDayNames: {
-        type: Boolean,
-        default: false
       },
       showLimit: {
         type: Number,
@@ -55,11 +45,6 @@
         highlightDays: this.highlight,
         wrapperClass: this.$calendar.class,
         currentMonthStart: dateHelper.firstDateOfMonth()
-      }
-    },
-    computed: {
-      calendar () {
-        return dateHelper.buildCalendar(this.currentMonthStart, this.events, this.firstDay);
       }
     },
     watch: {

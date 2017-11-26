@@ -1,30 +1,21 @@
 'use strict'
 
-import util from './utils/util';
-import * as filters from './filter/index';
+import defaults from './config/defaults';
+import languages from './utils/languages';
 import calendarComponent from './components/calendar.vue';
 
 function install(Vue, options = {}) {
-  const defaults = {
-    locale: 'en',
-    firstDay: 0,
-    moreText: 'show more',
-    class: 'vue-calendar',
-  };
 
   const calendarOptions = Object.assign(defaults, options);
 
-  const calendar = Object.assign({
+  const calendar = {
     eventBus: new Vue(),
-  }, calendarOptions);
+    translations: languages.getTranslation(calendarOptions.locale)
+  }
 
-  Vue.prototype.$calendar = calendar;
+  Vue.prototype.$calendar = Object.assign(calendar, calendarOptions);
 
   Vue.component('vue-calendar', calendarComponent);
-
-  util.each(filters, (value, name) => {
-    Vue.filter(name, value);
-  });
 }
 
 export default install;

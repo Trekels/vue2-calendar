@@ -5,11 +5,11 @@
       </slot>
     </div>
     <div class="header-center">
-      <span v-if="!previousMonthDisabled()" class="prev-month" @click.stop="goPrev"> &lt; </span>
+      <span v-if="!previousMonthDisabled" class="prev-month" @click.stop="goPrev"> &lt; </span>
 
-      <span class="title">{{ title }} {{ year }}</span>
+      <span class="title"> {{ month }} {{ year }} </span>
 
-      <span v-if="!nextMonthDisabled()" class="next-month" @click.stop="goNext"> &gt; </span>
+      <span v-if="!nextMonthDisabled" class="next-month" @click.stop="goNext"> &gt; </span>
     </div>
     <div class="header-right">
       <slot name="header-right">
@@ -18,17 +18,15 @@
   </div>
 </template>
 <script>
+  import i18nMixin from '../mixins/i18n';
   import dateHelper from '../utils/calendar';
 
   export default {
+    mixins: [ i18nMixin ],
     props: {
-      firstDayOfMonth: {
+      monthStart: {
         type: Date,
         required: true,
-      },
-      fullMonthNames: {
-        type: Boolean,
-        default: true
       },
       disabled: {
         type: Object,
@@ -36,46 +34,46 @@
       }
     },
     computed: {
-      title () {
-        return dateHelper.localMonthName(this.locale, this.firstDayOfMonth.getMonth(), this.fullMonthNames);
+      year() {
+        return this.monthStart.getFullYear();
       },
-      year () {
-        return this.firstDayOfMonth.getFullYear();
+      month() {
+        return this.printMonth(this.monthStart.getMonth());
+      },
+      hasDisabledPeriod() {
+        return !Object.keys(this.disabled).length;
+      },
+      previousMonthDisabled() {
+        if (this.hasDisabledPeriod || !this.disabled.hasOwnProperty('to')) {
+          return false; 
+        }
+
+        return (this.disabled.to.getMonth() >= this.monthStart.getMonth()) &&
+               (this.disabled.to.getFullYear() >= this.monthStart.getFullYear());
+      },
+      nextMonthDisabled () {
+        if (this.hasDisabledPeriod || !this.disabled.hasOwnProperty('from')) {
+          return false;
+        }
+
+        return (this.disabled.from.getMonth() <= this.monthStart.getMonth()) &&
+               (this.disabled.from.getFullYear() <= this.monthStart.getFullYear());
       }
     },
-    methods : {
-      goPrev () {
-        if (!this.previousMonthDisabled()) {
-          let newMonth = dateHelper.shiftMonth(this.firstDayOfMonth, 1);
+    methods: {
+      goPrev() {
+        if (!this.previousMonthDisabled) {
+          let newMonth = dateHelper.shiftMonth(this.monthStart, 1);
           this.$emit('changeMonth', newMonth);
         }
       },
       goNext () {
-        if (!this.nextMonthDisabled()) {
-          let newMonth = dateHelper.shiftMonth(this.firstDayOfMonth, -1);
+        if (!this.nextMonthDisabled) {
+          let newMonth = dateHelper.shiftMonth(this.monthStart, -1);
           this.$emit('changeMonth', newMonth);
         }
       },
-      previousMonthDisabled () {
-        if (!this.disabled || !this.disabled.to) {
-          return false;
-        }
-        let d = this.firstDayOfMonth;
-        return this.disabled.to.getMonth() >= d.getMonth() &&
-               this.disabled.to.getFullYear() >= d.getFullYear()
-      },
-      nextMonthDisabled () {
-        if (!this.disabled || !this.disabled.from) {
-          return false;
-        }
-        let d = this.firstDayOfMonth;
-        return this.disabled.from.getMonth() <= d.getMonth() &&
-               this.disabled.from.getFullYear() <= d.getFullYear()
-      }
     },
-    mounted() {
-
-    }
   }
 </script>
 <style>
