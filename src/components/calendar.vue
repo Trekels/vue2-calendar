@@ -2,118 +2,73 @@
   <div :class="wrapperClass">
     <calendar-header
       :disabled="disabledDays"
-      :month-start="currentMonthStart"
     >
     </calendar-header>
 
-    <events-modal v-if="showModal" :events="currentEventsList" @hideModal="hideEventsModal"></events-modal>
+    <calendar-body
+      :events="events"
+      :disabled="disabledDays"
+      :highlight="highlightDays"
+    >
+    </calendar-body>
   </div>
 </template>
+
 <script>
   import header from './calendar-header';
   import body from './calendar-body.vue';
-
-  import eventsBox from './events-box.vue';
-  import eventsModal from './events-modal.vue';
   import dateHelper from '../utils/calendar';
 
   export default {
     name: 'vue-calendar',
-    props : {
-      events : {
-        type : Array,
-        default : () => []
-      },
+    props: {
       showLimit: {
         type: Number,
         default: 3
       },
+      events: {
+        type: Array,
+        default: () => []
+      },
       disabled: {
         type: Object,
-        default: () => { return {}; }
+        default: () => ({})
       },
       highlight: {
         type: Object,
-        default: () => { return {}; }
+        default: () => ({})
       }
     },
-    data () {
+    data() {
       return {
-        showModal: false,
-        currentEventsList: null,
         disabledDays: this.disabled,
         highlightDays: this.highlight,
         wrapperClass: this.$calendar.class,
-        currentMonthStart: dateHelper.firstDateOfMonth()
       }
     },
     watch: {
-      disabled (newObj) {
-        this.disabledDays = newObj;
+      disabled(days) {
+        this.disabledDays = days;
       },
-      highlight (newObj) {
-        this.highlightDays = newObj;
+      highlight(days) {
+        this.highlightDays = days;
       }
     },
     methods: {
-      changeMonth: function (monthStart) {
-        this.currentMonthStart = monthStart;
-        let monthEnd = dateHelper.lastDateOfMonth(new Date(monthStart));
-        this.$emit('monthChanged', monthStart, monthEnd);
+      changeMonth(monthStart) {
+        this.$emit('monthChanged', this.monthStart);
       },
-      dayClick: function (day) {
-        this.$emit('dayClicked', day);
-      },
-      eventClicked: function(event) {
-        this.$emit('eventClicked', event);
-      },
-      showEventsModal: function(events) {
-        this.currentEventsList = events;
-        this.showModal = true;
-      },
-      hideEventsModal: function () {
-        this.showModal = false;
-      },
-      isDayHighlighted (date) {
-        if (!this.highlightDays) return false;
-
-        if (this.highlightDays.dates) {
-          return this.highlightDays.dates.some(d => date.date.toDateString() === d.toDateString());
-        }
-
-        if (this.highlightDays.to && date.date < this.highlightDays.to) return true;
-        if (this.highlightDays.from && date.date > this.highlightDays.from) return true;
-        if (this.highlightDays.days && this.highlightDays.days.indexOf(date.getDay) !== -1) return true;
-      },
-      isDayDisabled (date) {
-        if (!this.disabledDays) return false;
-
-        let isDisabledDays = false;
-        if (this.disabledDays.dates) {
-          this.disabledDays.dates.forEach((d) => {
-            if (date.date.toDateString() === d.toDateString()) {
-              isDisabledDays = true; return true;
-            }
-          });
-        }
-
-        if (isDisabledDays) return true;
-        if (this.disabledDays.to && date.date < this.disabledDays.to) return true;
-        if (this.disabledDays.from && date.date > this.disabledDays.from) return true;
-        return (this.disabledDays.days && this.disabledDays.days.indexOf(date.getDay) !== -1);
-      }
     },
     components: {
       'calendar-body': body,
       'calendar-header': header,
-      'events-box': eventsBox,
-      'events-modal': eventsModal,
     },
     mounted() {
-      this.changeMonth(dateHelper.firstDateOfMonth());
+      this.$calendar.eventBus.$on('changeMonth', this.changeMonth);
     }
   }
 </script>
+
 <style>
     .vue-calendar {
         background: #fff;

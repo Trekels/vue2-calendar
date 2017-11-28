@@ -11,8 +11,8 @@ export default {
   },
   methods: {
     printDay(day) {
-      let field = this.$calendar.fullMonthNames ? 'dayNameLong': 'dayNameShort';
-      return this.translations[field][month];
+      let field = this.$calendar.fullDayNames ? 'dayNameLong': 'dayNameShort';
+      return this.translations[field][day];
     },
     printMonth(month) {
       let field = this.$calendar.fullMonthNames ? 'monthNameLong': 'monthNameShort';

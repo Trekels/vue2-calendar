@@ -1,49 +1,73 @@
 <template>
   <div class="calendar-body">
     <div class="days-header">
-        <strong class="day-label" v-for="dayNumber in 7">{{ (dayNumber - 1) | printDay(locale, firstDay, fullDayNames) }}</strong>
+      <div v-for="dayNumber in 7" :key="dayNumber">
+        {{ printDay(dayNumber - 1) }}
+      </div>
     </div>
 
-    <div class="days-container">
-        <div class="week-row" v-for="week in calendar">
-            <div v-for="day in week"
-                  class="week-day-cell"
-                  :class="{  'today': day.isToday,
-                            'weekend': day.isWeekend,
-                            'saturday': day.isSaturday,
-                            'sunday': day.isSunday,
-                            'disabled': isDayDisabled(day),
-                            'highlighted': isDayHighlighted(day),
-                            'not-current-month': !day.isCurrentMonth }"
-                  @click.stop="dayClick(day)">
-                <div class="day-number">
-                    {{ day.monthDay }}
-                </div>
-                <events-box
-                        :events="day.events"
-                        :show-limit="showLimit"
-                        @eventClicked="eventClicked"
-                        @showMore="showEventsModal"
-                >
-                    <template slot-scope="event">
-                        <slot :event="event">{{ event.title }}</slot>
-                    </template>
-                </events-box>
-            </div>
+    <div class="days-body">
+      <div class="week-row" v-for="(week, key) in calendar" :key="key">
+        <div
+          :key="key"
+          :class="classes"
+          v-for="(day, key) in week"
+          @click.stop="dayClicked(day)"
+        >
+          <div class="day-number">
+            {{ day.monthDay }}
+          </div>
         </div>
+      </div>
     </div>
   </div>
 </template>
 
-
 <script>
+import i18nMixin from '../mixins/i18n';
 import dateHelper from '../utils/calendar';
 
 export default {
-  computed: {
-    calendar () {
-      return dateHelper.buildCalendar(this.currentMonthStart, this.events, this.firstDay);
+  mixins: [ i18nMixin ],
+  props: {
+    events: {
+      type: Array,
+      required: true
+    },
+    disabled: {
+      type: Object,
+      required: true
+    },
+    highlight: {
+      type: Object,
+      required: true
     }
   },
+  data() {
+    return {
+      monthStart: null,
+      firstDay: this.$calendar.firstDay,
+    }
+  },
+  computed: {
+    calendar() {
+      if (this.monthStart) {
+        return dateHelper.buildCalendar(this.monthStart, this.events, this.firstDay);
+      }
+    },
+    classes() {
+
+    }
+  },
+  methods: {
+    dayClicked() {
+    },
+    updateMoth(newMonth) {
+      this.monthStart = newMonth;
+    }
+  },
+  mounted() {
+    this.$calendar.eventBus.$on('changeMonth', this.updateMoth);
+  }
 }
 </script>

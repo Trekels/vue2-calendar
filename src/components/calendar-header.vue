@@ -5,11 +5,11 @@
       </slot>
     </div>
     <div class="header-center">
-      <span v-if="!previousMonthDisabled" class="prev-month" @click.stop="goPrev"> &lt; </span>
+      <span v-if="!isPrevMonthDisabled" class="prev-month" @click.stop="goPrev"> &lt; </span>
 
       <span class="title"> {{ month }} {{ year }} </span>
 
-      <span v-if="!nextMonthDisabled" class="next-month" @click.stop="goNext"> &gt; </span>
+      <span v-if="!isNextMonthDisabled" class="next-month" @click.stop="goNext"> &gt; </span>
     </div>
     <div class="header-right">
       <slot name="header-right">
@@ -17,20 +17,23 @@
     </div>
   </div>
 </template>
+
 <script>
   import i18nMixin from '../mixins/i18n';
   import dateHelper from '../utils/calendar';
 
   export default {
+    name: 'calendar-header',
     mixins: [ i18nMixin ],
     props: {
-      monthStart: {
-        type: Date,
-        required: true,
-      },
       disabled: {
         type: Object,
-        default: () => { return {}; },
+        required: true
+      }
+    },
+    data() {
+      return {
+        monthStart: null
       }
     },
     computed: {
@@ -43,7 +46,7 @@
       hasDisabledPeriod() {
         return !Object.keys(this.disabled).length;
       },
-      previousMonthDisabled() {
+      isPrevMonthDisabled() {
         if (this.hasDisabledPeriod || !this.disabled.hasOwnProperty('to')) {
           return false; 
         }
@@ -51,7 +54,7 @@
         return (this.disabled.to.getMonth() >= this.monthStart.getMonth()) &&
                (this.disabled.to.getFullYear() >= this.monthStart.getFullYear());
       },
-      nextMonthDisabled () {
+      isNextMonthDisabled() {
         if (this.hasDisabledPeriod || !this.disabled.hasOwnProperty('from')) {
           return false;
         }
@@ -61,21 +64,28 @@
       }
     },
     methods: {
-      goPrev() {
+      shiftMonth() {
         if (!this.previousMonthDisabled) {
-          let newMonth = dateHelper.shiftMonth(this.monthStart, 1);
-          this.$emit('changeMonth', newMonth);
+          this.monthStart = dateHelper.shiftMonth(this.monthStart, 1);
         }
       },
-      goNext () {
+      goNext() {
         if (!this.nextMonthDisabled) {
-          let newMonth = dateHelper.shiftMonth(this.monthStart, -1);
-          this.$emit('changeMonth', newMonth);
+          this.monthStart = dateHelper.shiftMonth(this.monthStart, -1);
         }
       },
     },
+    watch: {
+      monthStart(newMothStart) {
+        this.$calendar.eventBus.$emit('changeMonth', newMothStart);
+      }
+    },
+    created() {
+      this.monthStart = dateHelper.firstDateOfMonth();
+    }
   }
 </script>
+
 <style>
     .calendar-header{
         display: flex;
