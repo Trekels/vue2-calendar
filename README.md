@@ -1,9 +1,11 @@
 ## Vue2 simple event calendar.
-> [Calendar demo](https://trekels.github.io/vue2-calendar/)
-------------------------------
 
 [![npm](https://img.shields.io/npm/v/vue2-simple-calendar.svg?maxAge=2592000?style=flat-square)]()
 [![npm](https://img.shields.io/npm/dt/vue2-simple-calendar.svg?maxAge=2592000?style=flat-square)]()
+
+### Upcoming
+
+NOTE: I am working on a more flexible version which will be tagged as V1 (release wil be half of december 2017) :)
 
 ### Introduction
 
@@ -131,10 +133,3 @@ highlight: {
 
 Special thanks to [Vue full calendar](https://github.com/Wanderxx/vue-fullcalendar) on which I based my component and got
 my inspiration from.
-
-### Upcoming
-
- - Improve build process
- - Build demo application
- - Provide tests
- - Improve Date/Time handling
