@@ -32,6 +32,7 @@
                         <events-box
                                 :events="day.events"
                                 :show-limit="showLimit"
+                                :day="day"
                                 @eventClicked="eventClicked"
                                 @showMore="showEventsModal"
                         >
@@ -67,34 +68,34 @@
               type : Number | String,
               default : 0
             },
-	          fullMonthNames:  {
-            	type: Boolean,
+            fullMonthNames:  {
+              type: Boolean,
               default: true
             },
             fullDayNames: {
-	            type: Boolean,
-	            default: false
+              type: Boolean,
+              default: false
             },
             showLimit: {
-            	type: Number,
+              type: Number,
               default: 3
             },
             moreText: {
-            	type: String,
+              type: String,
               default: 'Show more'
             },
             disabled: {
-            	type: Object,
+              type: Object,
               default: () => { return {}; }
             },
             highlight: {
-            	type: Object,
+              type: Object,
               default: () => { return {}; }
             }
         },
         data () {
           return {
-          	showModal: false,
+            showModal: false,
             currentEventsList: null,
             disabledDays: this.disabled,
             highlightDays: this.highlight,
@@ -118,13 +119,13 @@
           changeMonth: function (monthStart) {
             this.currentMonthStart = monthStart;
             let monthEnd = dateHelper.lastDateOfMonth(new Date(monthStart));
-	          this.$emit('monthChanged', monthStart, monthEnd);
+            this.$emit('month-changed', monthStart, monthEnd);
           },
           dayClick: function (day) {
-            this.$emit('dayClicked', day);
+            this.$emit('day-clicked', day);
           },
-          eventClicked: function(event) {
-          	this.$emit('eventClicked', event);
+          eventClicked: function(event, day) {
+            this.$emit('event-clicked', event, day);
           },
           showEventsModal: function(events) {
             this.currentEventsList = events;
