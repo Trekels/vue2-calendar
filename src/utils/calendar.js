@@ -1,5 +1,3 @@
-import languages from '../utils/languages';
-
 /**
  * Returns the first day of current month or for the given month
  *
@@ -126,38 +124,16 @@ const parseDateString = (dateString) => {
 	return new Date(parts[0], (parts[1] - 1), parts[2]);
 };
 
-/**
- * Returns the localized name of the given month full or short name
- *
- * @param locale
- * @param month
- * @param fullName
- * @returns {*}
- */
-const localMonthName = (locale, month, fullName = false) => {
-	let langSet = languages[locale];
-	// return fullName ? langSet.monthNameLong[month]: langSet.monthNameShort[month];
-};
+const dateOccursIn = (day, daysObj) => {
 
-/**
- * Returns the localized name of the given weekday full or short name
- *
- * @param locale
- * @param day
- * @param fullName
- */
-const localDayName = (locale, day, fullName = 0) => {
-	let langSet = languages[locale];
-	return fullName ? langSet.dayNameLong[day] : langSet.dayNameShort[day];
-};
+}
 
 export default {
 	shiftMonth,
-	startOfWeek,
-	localDayName,
+  startOfWeek,
+  dateOccursIn,
 	eventsForDate,
 	buildCalendar,
-	localMonthName,
   lastDateOfMonth,
-	firstDateOfMonth,
+  firstDateOfMonth,
 }

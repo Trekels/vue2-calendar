@@ -20,13 +20,13 @@
 
 <script>
   import i18nMixin from '../mixins/i18n';
-  import dateHelper from '../utils/calendar';
+  import calendarJs from '../utils/calendar';
 
   export default {
     name: 'calendar-header',
     mixins: [ i18nMixin ],
     props: {
-      disabled: {
+      disable: {
         type: Object,
         required: true
       }
@@ -44,64 +44,64 @@
         return this.printMonth(this.monthStart.getMonth());
       },
       hasDisabledPeriod() {
-        return !Object.keys(this.disabled).length;
+        return !Object.keys(this.disable).length;
       },
       isPrevMonthDisabled() {
-        if (this.hasDisabledPeriod || !this.disabled.hasOwnProperty('to')) {
+        if (this.hasDisabledPeriod || !this.disable.hasOwnProperty('to')) {
           return false; 
         }
 
-        return (this.disabled.to.getMonth() >= this.monthStart.getMonth()) &&
-               (this.disabled.to.getFullYear() >= this.monthStart.getFullYear());
+        return (this.disable.to.getMonth() >= this.monthStart.getMonth()) &&
+               (this.disable.to.getFullYear() >= this.monthStart.getFullYear());
       },
       isNextMonthDisabled() {
-        if (this.hasDisabledPeriod || !this.disabled.hasOwnProperty('from')) {
+        if (this.hasDisabledPeriod || !this.disable.hasOwnProperty('from')) {
           return false;
         }
 
-        return (this.disabled.from.getMonth() <= this.monthStart.getMonth()) &&
-               (this.disabled.from.getFullYear() <= this.monthStart.getFullYear());
+        return (this.disable.from.getMonth() <= this.monthStart.getMonth()) &&
+               (this.disable.from.getFullYear() <= this.monthStart.getFullYear());
       }
     },
     methods: {
       shiftMonth() {
         if (!this.previousMonthDisabled) {
-          this.monthStart = dateHelper.shiftMonth(this.monthStart, 1);
+          this.monthStart = calendarJs.shiftMonth(this.monthStart, 1);
         }
       },
       goNext() {
         if (!this.nextMonthDisabled) {
-          this.monthStart = dateHelper.shiftMonth(this.monthStart, -1);
+          this.monthStart = calendarJs.shiftMonth(this.monthStart, -1);
         }
       },
     },
     watch: {
       monthStart(newMothStart) {
-        this.$calendar.eventBus.$emit('changeMonth', newMothStart);
+        this.$calendar.eventBus.$emit('change-month', newMothStart);
       }
     },
     created() {
-      this.monthStart = dateHelper.firstDateOfMonth();
+      this.monthStart = calendarJs.firstDateOfMonth();
     }
   }
 </script>
 
 <style>
-    .calendar-header{
-        display: flex;
-        align-items: center;
-    }
-    .header-left, .header-right{
-        flex:1;
-    }
-    .header-center {
-        flex: 3;
-        text-align: center;
-    }
-    .title{
-        margin: 0 5px;
-    }
-    .prev-month,.next-month{
-        cursor: pointer;
-    }
+  .calendar-header{
+      display: flex;
+      align-items: center;
+  }
+  .header-left, .header-right{
+      flex:1;
+  }
+  .header-center {
+      flex: 3;
+      text-align: center;
+  }
+  .title{
+      margin: 0 5px;
+  }
+  .prev-month,.next-month{
+      cursor: pointer;
+  }
 </style>

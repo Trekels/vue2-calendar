@@ -25,7 +25,7 @@
 
 <script>
 import i18nMixin from '../mixins/i18n';
-import dateHelper from '../utils/calendar';
+import calendarJs from '../utils/calendar';
 
 export default {
   mixins: [ i18nMixin ],
@@ -34,7 +34,7 @@ export default {
       type: Array,
       required: true
     },
-    disabled: {
+    disable: {
       type: Object,
       required: true
     },
@@ -46,28 +46,85 @@ export default {
   data() {
     return {
       monthStart: null,
+      disabledDays: this.disabled,
+      highlightedDays: this.highlight,
       firstDay: this.$calendar.firstDay,
     }
   },
   computed: {
     calendar() {
       if (this.monthStart) {
-        return dateHelper.buildCalendar(this.monthStart, this.events, this.firstDay);
+        return calendarJs.buildCalendar(this.monthStart, this.events, this.firstDay);
       }
     },
     classes() {
-
     }
   },
   methods: {
+    isDayHighlighted(date) {
+      return calendarJs.dateOccursIn(date, this.highlightedDays);
+    },
+    isDayDisabled(date) {
+      return calendarJs.dateOccursIn(date, this.highlightedDays);
+    },
     dayClicked() {
     },
-    updateMoth(newMonth) {
-      this.monthStart = newMonth;
+  },
+  watch: {
+    disable(days) {
+      this.disabledDays = days;
+    },
+    highlight(days) {
+      this.highlightDays = days;
     }
   },
   mounted() {
-    this.$calendar.eventBus.$on('changeMonth', this.updateMoth);
+    this.$calendar.eventBus.$on('change-month', newMonth => this.monthStart = newMonth);
   }
 }
 </script>
+
+<style>
+  .calendar-body {
+      margin: 10px 0;
+  }
+
+  .days-header{
+      display: flex;
+      border-top:1px solid #e0e0e0;
+      border-bottom:1px solid #e0e0e0;
+      border-left:1px solid #e0e0e0;
+  }
+  .day-label{
+      flex:1;
+      text-align: center;
+      border-right:1px solid #e0e0e0;
+  }
+  .day-number{
+      text-align: right;
+      margin-right: 10px;
+  }
+
+  .week-row{
+      border-left:1px solid #e0e0e0;
+      display: flex;
+  }
+  .week-day-cell{
+      flex:1;
+      min-height: 112px;
+      padding:4px;
+      border-right:1px solid #e0e0e0;
+      border-bottom:1px solid #e0e0e0;
+  }
+  .week-day-cell.disabled-day{
+      background-color: rgb(245, 245, 245);
+  }
+  .week-day-cell.not-current-month>.day-number{
+      color: rgb(195,195,195);
+  }
+  .week-day-cell.today > .day-number{
+      font-weight: bold;
+      color: red;
+  }
+</style>
+
