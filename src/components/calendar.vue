@@ -34,11 +34,7 @@
                                 :show-limit="showLimit"
                                 @eventClicked="eventClicked"
                                 @showMore="showEventsModal"
-                        >
-                            <template slot-scope="event">
-                                <slot :event="event">{{ event.title }}</slot>
-                            </template>
-                        </events-box>
+                        ></events-box>
                     </div>
                 </div>
             </div>
