@@ -86,45 +86,26 @@ export default {
 
 <style>
   .calendar-body {
-      margin: 10px 0;
+    display: grid;
+    grid-template-rows: 10% 90%;
   }
 
-  .days-header{
-      display: flex;
-      border-top:1px solid #e0e0e0;
-      border-bottom:1px solid #e0e0e0;
-      border-left:1px solid #e0e0e0;
-  }
-  .day-label{
-      flex:1;
-      text-align: center;
-      border-right:1px solid #e0e0e0;
-  }
-  .day-number{
-      text-align: right;
-      margin-right: 10px;
+  .days-header {
+    display: grid;
+    grid-template-areas: "a a a a a a a";
+    grid-auto-columns: 14.25%;
   }
 
-  .week-row{
-      border-left:1px solid #e0e0e0;
-      display: flex;
+  .days-body {
+    display: grid;
+    grid-template-rows: auto;
   }
-  .week-day-cell{
-      flex:1;
-      min-height: 112px;
-      padding:4px;
-      border-right:1px solid #e0e0e0;
-      border-bottom:1px solid #e0e0e0;
-  }
-  .week-day-cell.disabled-day{
-      background-color: rgb(245, 245, 245);
-  }
-  .week-day-cell.not-current-month>.day-number{
-      color: rgb(195,195,195);
-  }
-  .week-day-cell.today > .day-number{
-      font-weight: bold;
-      color: red;
+
+  .week-row {
+    display: grid;
+    grid-template-areas: "a a a a a a a";
+    grid-row-gap: 5px;
+    grid-auto-columns: 14.25%;
   }
 </style>
 

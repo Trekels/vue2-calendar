@@ -36,6 +36,10 @@
       highlight: {
         type: Object,
         default: () => ({})
+      },
+      height: {
+        type: String,
+        default: '500px'
       }
     },
     data() {
@@ -55,18 +59,29 @@
       },
       highlight(days) {
         this.highlightedDays = days;
+      },
+      height(newHeight) {
+        this.height = newHeight;
+        this.updateHeight();
       }
     },
     methods: {
       changeMonth(monthStart) {
         this.$emit('month-changed', this.monthStart);
       },
+      updateHeight() {
+        let [ calendarEl ] = document.getElementsByClassName(this.wrapperClass);
+        if (calendarEl) {
+          calendarEl.style.height = this.height;
+        }
+      }
     },
     components: {
       'calendar-body': body,
       'calendar-header': header,
     },
     mounted() {
+      this.updateHeight();
       this.$calendar.eventBus.$on('change-month', this.changeMonth);
     }
   }
@@ -74,7 +89,7 @@
 
 <style>
   .vue-calendar {
-    background: #fff;
-    margin:0 auto;
+    display: grid;
+    grid-template-rows: 10% 90%;
   }
 </style>

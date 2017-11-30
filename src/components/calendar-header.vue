@@ -87,21 +87,4 @@
 </script>
 
 <style>
-  .calendar-header{
-      display: flex;
-      align-items: center;
-  }
-  .header-left, .header-right{
-      flex:1;
-  }
-  .header-center {
-      flex: 3;
-      text-align: center;
-  }
-  .title{
-      margin: 0 5px;
-  }
-  .prev-month,.next-month{
-      cursor: pointer;
-  }
 </style>
