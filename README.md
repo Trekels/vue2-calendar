@@ -13,7 +13,7 @@ NOTE: I am working on a more flexible version which will be tagged as V1 (releas
 ### Introduction
 
 This is a simple and small event calendar component for Vue js. Though there already a few other
-calendar components, most of them are heavy and very bulky. The goal with this one is to have a calendar 
+calendar components, most of them are heavy and very bulky. The goal with this one is to have a calendar
 component that does not depend on any heavy libs like `momentJs`.
 
 ### Table of contents
@@ -101,11 +101,11 @@ highlight: {
 
 ### Component events
 
-| Event                 | Output                             | Description                                             |               
-|-----------------------|------------------------------------|---------------------------------------------------------|
-| monthChanged          | start and end date of month        | Triggered on mount and when the user changes the month  |
-| dayClicked            | [Day](#day-object-example) obj     | Triggered when the user clicks on a day                 |
-| eventClicked          | [Event](#event-object-example) obj | Triggered when the user clicks on a event               |
+| Event                  | Output                                                             | Description                                             |
+|------------------------|--------------------------------------------------------------------|---------------------------------------------------------|
+| month-changed          | start and end date of month                                        | Triggered on mount and when the user changes the month  |
+| day-clicked            | [Day](#day-object-example) obj                                     | Triggered when the user clicks on a day                 |
+| event-clicked          | [Event](#event-object-example) obj, [Day](#day-object-example) obj | Triggered when the user clicks on a event               |
 
 #### Day object example
 ```
@@ -115,7 +115,7 @@ highlight: {
     monthDay : 1..31,                      // Number of day in the month
     isSunday: true/false
     isSaturday: true/false,
-    isWeekend: true/false   
+    isWeekend: true/false
     events: Array,                         // List of events on that day
     isToday: true/false,                   // If is current day
     isCurrentMonth: true/false             // If is part of the requested month
@@ -136,4 +136,3 @@ highlight: {
 
 Special thanks to [Vue full calendar](https://github.com/Wanderxx/vue-fullcalendar) on which I based my component and got
 my inspiration from.
- 
