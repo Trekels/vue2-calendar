@@ -1,8 +1,8 @@
 <template>
   <div class="calendar-body">
     <div class="days-header">
-      <div v-for="dayNumber in 7" :key="dayNumber">
-        {{ printDay(dayNumber - 1) }}
+      <div v-for="day in 7" :key="day">
+        {{ printDay(day - 1) }}
       </div>
     </div>
 
@@ -10,7 +10,7 @@
       <div class="week-row" v-for="(week, key) in calendar" :key="key">
         <div
           :key="key"
-          :class="classes"
+          :class="dayClasses(day)"
           v-for="(day, key) in week"
           @click.stop="dayClicked(day)"
         >
@@ -54,21 +54,34 @@ export default {
   computed: {
     calendar() {
       if (this.monthStart) {
-        return calendarJs.buildCalendar(this.monthStart, this.events, this.firstDay);
+        return calendarJs.buildCalendar(this.monthStart, this.firstDay);
       }
-    },
-    classes() {
     }
   },
   methods: {
-    isDayHighlighted(date) {
-      return calendarJs.dateOccursIn(date, this.highlightedDays);
+    dayClasses(day) {
+      return this.activeKeys({
+        today: day.isToday,
+        sunday: day.isSunday,
+        weekend: day.isWeekend,
+        saturday: day.isSaturday,
+        'not-current': !day.isCurrentMonth,
+        disabled: this.isDayDisabled(day),
+        highlighted: this.isDayHighlighted(day),
+      });
     },
-    isDayDisabled(date) {
-      return calendarJs.dateOccursIn(date, this.highlightedDays);
+    isDayHighlighted(day) {
+      return calendarJs.dateOccursIn(day, this.highlightedDays);
+    },
+    isDayDisabled(day) {
+      return calendarJs.dateOccursIn(day, this.highlightedDays);
     },
     dayClicked() {
     },
+    activeKeys(obj) {
+      return Object.keys(obj)
+        .filter(key => obj[key] === true);
+    }
   },
   watch: {
     disable(days) {

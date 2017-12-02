@@ -2,26 +2,26 @@
   <vue-calendar></vue-calendar>
 </template>
 <script>
-    import eventApi from './api/event-api';
+  import eventApi from './api/event-api';
 
-    export default {
-    	data: function () {
-    		return {
-    			events: [],
-          disabled: {}
-        }
+  export default {
+    data() {
+      return {
+        events: [],
+        disabled: {}
+      }
+    },
+    methods: {
+      monthChanged(start, end) {
+        this.events = eventApi.getEvents(start, end);
+        this.disabled = eventApi.getDisabledDays(start, end);
       },
-      methods: {
-    	  monthChanged: function (start, end) {
-          this.events = eventApi.getEvents(start, end);
-          this.disabled = eventApi.getDisabledDays(start, end);
-        },
-        dayClicked: function (events) {
-          // Day click event
-        },
-        eventClicked: function (event) {
-          // Event clicked
-        }
+      dayClicked(...args) {
+        console.log('DayClickEvent:', args);
+      },
+      eventClicked(...args) {
+        console.log('EventClickEvent:', args);
       }
     }
+  }
 </script>
