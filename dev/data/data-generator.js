@@ -1,8 +1,5 @@
-/**
- * Api simulation to retrieve a list of events.
- */
 export default {
-	getEvents (monthStart, monthEnd) {
+	mockEvents(monthStart, monthEnd) {
 		let year = monthEnd.getFullYear();
 		let month = monthEnd.getMonth();
 		let events = [];
@@ -15,29 +12,29 @@ export default {
 
 		return events;
 	},
-	getDisabledDays (monthStart, monthEnd) {
+	mockDays(monthStart, monthEnd) {
     let year = monthEnd.getFullYear();
     let month = monthEnd.getMonth();
-    let disabled = [];
+    let days = [];
 
-    let amountOfDisabledDays = getRandomNumber(5);
-    while (amountOfDisabledDays--){
+    let amountOfDays = getRandomNumber(5);
+    while (amountOfDays--){
       let day = getRandomNumber(monthEnd.getDate());
-      disabled.push((new Date(year, month, day)));
+      days.push((new Date(year, month, day)));
     }
 
     return {
-    	dates: disabled
+    	dates: days
 		};
 	}
 }
 
 function newEvent(title, start, end) {
-	return {
-    title    : title,
-    start    : start.getFullYear() + '-' + (start.getMonth() + 1) + '-' + start.getDate(),
-    end      : end,
-	};
+  return {
+    title: title,
+    start: start.getFullYear() + '-' + (start.getMonth() + 1) + '-' + start.getDate(),
+    end: end,
+  };
 }
 
 function getRandomNumber(upper) {

@@ -66,15 +66,13 @@
       }
     },
     methods: {
-      changeMonth(monthStart) {
-        this.$emit('month-changed', this.monthStart);
-      },
       updateHeight() {
         let [ calendarEl ] = document.getElementsByClassName(this.wrapperClass);
-        if (calendarEl) {
-          calendarEl.style.height = this.height;
-        }
-      }
+        calendarEl && (calendarEl.style.height = this.height);
+      },
+      changeMonth(start, end) {
+        this.$emit('month-changed', start, end);
+      },
     },
     components: {
       'calendar-body': body,

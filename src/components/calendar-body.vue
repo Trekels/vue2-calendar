@@ -76,7 +76,8 @@ export default {
     isDayDisabled(day) {
       return calendarJs.dateOccursIn(day, this.highlightedDays);
     },
-    dayClicked() {
+    dayClicked(day) {
+      this.$calendar.eventBus.$emit('day-clicked', day);
     },
     activeKeys(obj) {
       return Object.keys(obj)

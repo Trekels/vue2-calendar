@@ -64,7 +64,7 @@
       }
     },
     methods: {
-      shiftMonth() {
+      goPrev() {
         if (!this.previousMonthDisabled) {
           this.monthStart = calendarJs.shiftMonth(this.monthStart, 1);
         }
@@ -76,8 +76,11 @@
       },
     },
     watch: {
-      monthStart(newMothStart) {
-        this.$calendar.eventBus.$emit('change-month', newMothStart);
+      monthStart(monthStart) {
+        this.$calendar.eventBus.$emit('change-month',
+          monthStart,
+          calendarJs.lastDateOfMonth(monthStart)
+        );
       }
     },
     created() {
