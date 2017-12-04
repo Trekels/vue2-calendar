@@ -89,5 +89,7 @@
   .vue-calendar {
     display: grid;
     grid-template-rows: 10% 90%;
+    background: #fff;
+    margin:0 auto;
   }
 </style>

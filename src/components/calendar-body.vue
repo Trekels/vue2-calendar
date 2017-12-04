@@ -1,7 +1,7 @@
 <template>
   <div class="calendar-body">
     <div class="days-header">
-      <div v-for="day in 7" :key="day">
+      <div class="day-label" v-for="day in 7" :key="day">
         {{ printDay(day - 1) }}
       </div>
     </div>
@@ -10,6 +10,7 @@
       <div class="week-row" v-for="(week, key) in calendar" :key="key">
         <div
           :key="key"
+          class="week-day"
           :class="dayClasses(day)"
           v-for="(day, key) in week"
           @click.stop="dayClicked(day)"
@@ -46,7 +47,7 @@ export default {
   data() {
     return {
       monthStart: null,
-      disabledDays: this.disabled,
+      disabledDays: this.disable,
       highlightedDays: this.highlight,
       firstDay: this.$calendar.firstDay,
     }
@@ -71,10 +72,10 @@ export default {
       });
     },
     isDayHighlighted(day) {
-      return calendarJs.dateOccursIn(day, this.highlightedDays);
+      return calendarJs.dateOccursIn(day.date, this.highlightedDays);
     },
     isDayDisabled(day) {
-      return calendarJs.dateOccursIn(day, this.highlightedDays);
+      return calendarJs.dateOccursIn(day.date, this.disabledDays);
     },
     dayClicked(day) {
       this.$calendar.eventBus.$emit('day-clicked', day);
@@ -89,7 +90,7 @@ export default {
       this.disabledDays = days;
     },
     highlight(days) {
-      this.highlightDays = days;
+      this.highlightedDays = days;
     }
   },
   mounted() {
@@ -106,8 +107,12 @@ export default {
 
   .days-header {
     display: grid;
-    grid-template-areas: "a a a a a a a";
     grid-auto-columns: 14.25%;
+    grid-template-areas: "a a a a a a a";
+
+    border-top:1px solid #e0e0e0;
+    border-left:1px solid #e0e0e0;
+    border-bottom:1px solid #e0e0e0;
   }
 
   .days-body {
@@ -115,11 +120,45 @@ export default {
     grid-template-rows: auto;
   }
 
+  .day-number{
+    text-align: right;
+    margin-right: 10px;
+  }
+
+
+  .day-label{
+    text-align: center;
+    border-right:1px solid #e0e0e0;
+  }
+
   .week-row {
     display: grid;
     grid-template-areas: "a a a a a a a";
     grid-row-gap: 5px;
     grid-auto-columns: 14.25%;
+  }
+
+  .week-row{
+    border-left:1px solid #e0e0e0;
+  }
+
+  .week-day{
+    padding:4px;
+    border-right:1px solid #e0e0e0;
+    border-bottom:1px solid #e0e0e0;
+  }
+
+  .week-day.disabled{
+    background-color: rgb(245, 245, 245);
+  }
+
+  .week-day.not-current>.day-number{
+    color: rgb(195,195,195);
+  }
+
+  .week-day.today > .day-number{
+    font-weight: bold;
+    color: red;
   }
 </style>
 
