@@ -18,6 +18,12 @@
           <div class="day-number">
             {{ day.monthDay }}
           </div>
+
+          <events-box 
+            v-if="dayEvents = getEventsForDay(day.date)"
+            :events="dayEvents"
+          ></events-box>
+
         </div>
       </div>
     </div>
@@ -25,10 +31,12 @@
 </template>
 
 <script>
+import eventsBox from './events-box';
 import i18nMixin from '../mixins/i18n';
 import calendarJs from '../utils/calendar';
 
 export default {
+  name: 'calendar-body',
   mixins: [ i18nMixin ],
   props: {
     events: {
@@ -48,11 +56,16 @@ export default {
     return {
       monthStart: null,
       disabledDays: this.disable,
-      highlightedDays: this.highlight,
-      firstDay: this.$calendar.firstDay,
-    }
+      highlightedDays: this.highlight
+    };
   },
   computed: {
+    firstDay() {
+      return this.$calendar.firstDay;
+    },
+    showLimit() {
+      this.$calendar.showLimit;
+    },
     calendar() {
       if (this.monthStart) {
         return calendarJs.buildCalendar(this.monthStart, this.firstDay);
@@ -60,6 +73,9 @@ export default {
     }
   },
   methods: {
+    getEventsForDay(date) {
+      return calendarJs.filterEventsByDate(date, this.events, this.showLimit);
+    },
     dayClasses(day) {
       return this.activeKeys({
         today: day.isToday,
@@ -68,7 +84,7 @@ export default {
         saturday: day.isSaturday,
         'not-current': !day.isCurrentMonth,
         disabled: this.isDayDisabled(day),
-        highlighted: this.isDayHighlighted(day),
+        highlighted: this.isDayHighlighted(day)
       });
     },
     isDayHighlighted(day) {
@@ -93,6 +109,9 @@ export default {
       this.highlightedDays = days;
     }
   },
+  components: {
+    'events-box': eventsBox
+  },
   mounted() {
     this.$calendar.eventBus.$on('change-month', newMonth => this.monthStart = newMonth);
   }
@@ -102,7 +121,7 @@ export default {
 <style>
   .calendar-body {
     display: grid;
-    grid-template-rows: 10% 90%;
+    grid-template-rows: 5% 95%;
   }
 
   .days-header {

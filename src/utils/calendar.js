@@ -43,7 +43,7 @@ const buildCalendar = (startDate, firstDay = 1) => {
         isSaturday: day === 6,
         isWeekend: day === 0 || day === 6,
         monthDay: calendarDate.getDate(),
-        isToday: (calendarDate === today),
+        isToday: (calendarDate.getTime() === today),
         isCurrentMonth: (calendarDate.getMonth() === startDate.getMonth())
       });
 
@@ -57,7 +57,7 @@ const buildCalendar = (startDate, firstDay = 1) => {
   return calendar;
 };
 
-const eventsForDate = (date, events) => {
+const filterEventsByDate = (date, events, showLimit) => {
   return events.filter(day => {
     let start = parseDateString(day.start);
     let end = day.end ? parseDateString(day.end) : start;
@@ -89,8 +89,8 @@ export default {
   shiftMonth,
   startOfWeek,
   dateOccursIn,
-  eventsForDate,
   buildCalendar,
   lastDateOfMonth,
-  firstDateOfMonth
+  firstDateOfMonth,
+  filterEventsByDate
 };

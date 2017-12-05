@@ -34,7 +34,7 @@
     data() {
       return {
         monthStart: null
-      }
+      };
     },
     computed: {
       year() {

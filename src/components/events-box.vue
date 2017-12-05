@@ -1,52 +1,49 @@
 <template>
   <div class="events">
-    <div class="events-container" :class="eventClasses(event)"
-         v-for="(event, index) in events"
-         v-show="index <= (showLimit - 1)"
-         @click.stop="eventClick(event)"
+    <div 
+      :key="index"
+      class="events-container"
+      v-for="(event, index) in events"
+      @click.stop="eventClick(event)"
     >
-     <div class="event">
-       <slot :title="event.title"></slot>
-     </div>
+      <div class="event">
+        {{ event.title }}
+      </div>
     </div>
-    <p v-if="events.length > showLimit" class="more-link" @click.stop="selectDay">
-      {{ moreText }}
+    <p class="more-link" @click.stop="selectDay">
+      {{ showMoreLabel }}
     </p>
   </div>
 </template>
+
 <script>
-  import languages from '../utils/languages';
+  import i18nMixin from '../mixins/i18n';
 
   export default {
+    name: 'events-box',
+    mixins: [ i18nMixin ],
   	props: {
   		events: {
   			type: Array,
-        default: () => []
-      },
-      showLimit: {
-  			type: Number,
-        default: 3
-      },
-      locale: {
-  			type: String,
-        default: 'en'
+        required: true
       }
     },
+    data() {
+      return {
+        dayEvents: this.events
+      };
+    },
     computed: {
-  		moreText: function () {
-  			return languages[this.locale].showMore;
+    },
+    watch: {
+      events(events) {
+        this.dayEvents = events;
+      },
+      day(date) {
+        this.date = date;
       }
     },
     methods: {
-  		eventClick: function(event) {
-  			this.$emit('eventClicked', event);
-      },
-	    eventClasses: function (event) {
-		    return event.class ? event.class : '';
-	    },
-      selectDay: function() {
-        this.$emit('showMore', this.events);
-      }
     }
   }
 </script>

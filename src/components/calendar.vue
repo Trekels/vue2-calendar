@@ -21,10 +21,6 @@
   export default {
     name: 'vue-calendar',
     props: {
-      showLimit: {
-        type: Number,
-        default: 3
-      },
       events: {
         type: Array,
         default: () => []
@@ -48,7 +44,7 @@
         disabledDays: this.disable,
         highlightedDays: this.highlight,
         wrapperClass: this.$calendar.class,
-      }
+      };
     },
     watch: {
       events(newEvents) {
