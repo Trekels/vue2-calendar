@@ -1,15 +1,15 @@
 <template>
   <div class="events">
-    <div class="events-container" :class="eventClasses(event)"
+    <div class="events-container" :class="eventContainerClasses(event)"
          v-for="(event, index) in events"
          v-show="index <= (showLimit - 1)"
          @click.stop="eventClick(event)"
     >
-     <div class="event">
+     <div class="event" :class="eventClasses(event)">
        <slot :title="event.title"></slot>
      </div>
     </div>
-    <p v-if="events.length > showLimit" class="more-link" @click.stop="selectDay">
+    <p v-if="events.length > showLimit" class="more-link" @click.stop="eventClick">
       {{ moreText }}
     </p>
   </div>
@@ -18,32 +18,39 @@
   import languages from '../utils/languages';
 
   export default {
-  	props: {
-  		events: {
-  			type: Array,
+    props: {
+      events: {
+        type: Array,
         default: () => []
       },
+      day: {
+        type: Object,
+        default: () => {}
+      },
       showLimit: {
-  			type: Number,
+        type: Number,
         default: 3
       },
       locale: {
-  			type: String,
+        type: String,
         default: 'en'
       }
     },
     computed: {
-  		moreText: function () {
-  			return languages[this.locale].showMore;
+      moreText: function () {
+        return languages[this.locale].showMore;
       }
     },
     methods: {
-  		eventClick: function(event) {
-  			this.$emit('eventClicked', event);
+      eventClick: function(event) {
+        this.$emit('eventClicked', event, this.day);
       },
-	    eventClasses: function (event) {
-		    return event.class ? event.class : '';
-	    },
+      eventContainerClasses: function (event) {
+        return event.containerClass ? event.containerClass : '';
+      },
+      eventClasses: function (event) {
+        return event.class ? event.class : ''
+      },
       selectDay: function() {
         this.$emit('showMore', this.events);
       }

@@ -1,12 +1,12 @@
 {
   "name": "vue2-simple-calendar",
-  "version": "0.0.19",
+  "version": "0.1.0",
   "license": "MIT",
   "description": "An event calendar component",
-  "author": "Trekels Vincent",
+  "author": "Trekels Vincent, fobiasmog",
   "main": "dist/vue-calendar.js",
-  "repository": "https://github.com/Trekels/vue2-calendar",
-  "bugs": "https://github.com/Trekels/vue2-calendar/issues",
+  "repository": "https://github.com/fobiasmog/vue2-calendar",
+  "bugs": "https://github.com/fobiasmog/vue2-calendar/issues",
   "files": [
     "dist/vue-calendar.js",
     "src"

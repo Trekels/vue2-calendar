@@ -18,14 +18,17 @@
                 <div class="week-row" v-for="week in calendar">
                     <div v-for="day in week"
                          class="week-day-cell"
-                         :class="{  'today': day.isToday,
-                                    'weekend': day.isWeekend,
-                                    'saturday': day.isSaturday,
-                                    'sunday': day.isSunday,
-                                    'disabled': isDayDisabled(day),
-                                    'highlighted': isDayHighlighted(day),
-                                    'not-current-month': !day.isCurrentMonth }"
-                         @click.stop="dayClick(day)">
+                         :class="{
+                            'today': day.isToday,
+                            'weekend': day.isWeekend,
+                            'saturday': day.isSaturday,
+                            'sunday': day.isSunday,
+                            'disabled': isDayDisabled(day),
+                            'highlighted': isDayHighlighted(day),
+                            'not-current-month': !day.isCurrentMonth,
+                            'current-month': day.isCurrentMonth
+                          }"
+                          @click.stop="dayClick(day)">
                         <div class="day-number">
                             {{ day.monthDay }}
                         </div>
@@ -33,6 +36,7 @@
                                 :events="day.events"
                                 :show-limit="showLimit"
                                 :day="day"
+                                :locale="locale"
                                 @eventClicked="eventClicked"
                                 @showMore="showEventsModal"
                         >
@@ -122,7 +126,10 @@
             this.$emit('month-changed', monthStart, monthEnd);
           },
           dayClick: function (day) {
-            this.$emit('day-clicked', day);
+            // пока только по текущему месяцу
+            if ( day.isCurrentMonth ) {
+              this.$emit('day-clicked', day);
+            }
           },
           eventClicked: function(event, day) {
             this.$emit('event-clicked', event, day);
@@ -224,5 +231,8 @@
     .week-day-cell.today > .day-number{
         font-weight: bold;
         color: red;
+    }
+    .week-day-cell.current-month{
+        cursor: pointer;
     }
 </style>

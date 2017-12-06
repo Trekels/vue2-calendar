@@ -9,7 +9,7 @@
           </div>
 
           <div class="modal-body">
-            <div class="event" v-for="event in events">
+            <div class="event" v-for="event in events" :class="event.class">
               {{ event.title }}
             </div>
           </div>
