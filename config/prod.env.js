@@ -5,6 +5,6 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     env: {
       NODE_ENV: '"development"'
-    },
+    }
   }
 };

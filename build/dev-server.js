@@ -5,7 +5,7 @@ const express = require('express');
 const webpack = require('webpack');
 
 const config = require('../config/dev.env');
-const webpackConfig =  require('./webpack.dev.conf');
+const webpackConfig = require('./webpack.dev.conf');
 const proxyMiddleware = require('http-proxy-middleware');
 
 const proxyTable = {};
@@ -24,20 +24,20 @@ let hotMiddleware = require('webpack-hot-middleware')(compiler, {
 });
 
 // force page reload when html-webpack-plugin template changes
-compiler.plugin('compilation', function (compilation) {
-  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
+compiler.plugin('compilation', (compilation) => {
+  compilation.plugin('html-webpack-plugin-after-emit', (data, cb) => {
     hotMiddleware.publish({ action: 'reload' });
-    cb()
-  })
+    cb();
+  });
 });
 
 // proxy api requests
-Object.keys(proxyTable).forEach(function (context) {
+Object.keys(proxyTable).forEach((context) => {
   let options = proxyTable[context];
   if (typeof options === 'string') {
-    options = { target: options }
+    options = { target: options };
   }
-  app.use(proxyMiddleware(options.filter || context, options))
+  app.use(proxyMiddleware(options.filter || context, options));
 });
 
 app.use(require('connect-history-api-fallback')());
@@ -52,13 +52,13 @@ let uri = 'http://localhost:' + port;
 
 let _resolve;
 let readyPromise = new Promise(resolve => {
-  _resolve = resolve
+  _resolve = resolve;
 });
 
 console.log('> Starting dev server...');
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n');
-  _resolve()
+  _resolve();
 });
 
 let server = app.listen(port);
@@ -66,6 +66,6 @@ let server = app.listen(port);
 module.exports = {
   ready: readyPromise,
   close: () => {
-    server.close()
+    server.close();
   }
 };

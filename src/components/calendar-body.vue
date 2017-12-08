@@ -21,8 +21,7 @@
 
           <events-box 
             v-if="dayEvents = getEventsForDay(day.date)"
-            :events="dayEvents.list"
-            :more="dayEvents.more"
+            :events="dayEvents"
           ></events-box>
         </div>
       </div>
@@ -73,16 +72,8 @@ export default {
     }
   },
   methods: {
-    getEventsForDay(date) {
-      const events = calendarJs.filterEventsForDate(date, this.events, (this.showLimit + 1));
-
-      return !events ? false : {
-        list: events.slice(0, this.showLimit),
-        more: (events.length > this.showLimit)
-      };
-    },
     dayClasses(day) {
-      return this.activeKeys({
+      const classes = {
         today: day.isToday,
         sunday: day.isSunday,
         weekend: day.isWeekend,
@@ -90,20 +81,21 @@ export default {
         'not-current': !day.isCurrentMonth,
         disabled: this.isDayDisabled(day),
         highlighted: this.isDayHighlighted(day)
-      });
-    },
-    isDayHighlighted(day) {
-      return calendarJs.dateOccursIn(day.date, this.highlightedDays);
-    },
-    isDayDisabled(day) {
-      return calendarJs.dateOccursIn(day.date, this.disabledDays);
+      };
+
+      return Object.keys(classes).filter(key => classes[key] === true);
     },
     dayClicked(day) {
       this.$calendar.eventBus.$emit('day-clicked', day);
     },
-    activeKeys(obj) {
-      return Object.keys(obj)
-        .filter(key => obj[key] === true);
+    getEventsForDay(date) {
+      return calendarJs.filterEventsForDate(date, this.events);
+    },
+    isDayDisabled(day) {
+      return calendarJs.dateOccursIn(day.date, this.disabledDays);
+    },
+    isDayHighlighted(day) {
+      return calendarJs.dateOccursIn(day.date, this.highlightedDays);
     }
   },
   watch: {
@@ -123,7 +115,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
   .calendar-body {
     display: grid;
     grid-template-rows: 5% 95%;

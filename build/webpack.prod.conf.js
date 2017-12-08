@@ -1,10 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const baseWebpackConfig = require('./webpack.base.conf');
 
-const webpackConfig = merge(baseWebpackConfig, {
+module.exports = merge(baseWebpackConfig, {
   output: {
     path: path.resolve(__dirname, '../dist'),
     library: 'vueCalendar',
@@ -15,13 +16,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': process.env.NODE_ENV
     }),
+    new ExtractTextPlugin({
+      filename: 'event-calendar.css'
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
       },
       sourceMap: true
-    })
-  ]
+    })]
 });
-
-module.exports = webpackConfig;

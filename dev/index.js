@@ -9,10 +9,10 @@ Vue.use(calendar, {
 });
 
 new Vue({
-  el : '#app',
+  el: '#app',
   render: h => h(App),
-  template : '<App/>',
-  components : {
-      App,
-  },
+  template: '<App/>',
+  components: {
+    App
+  }
 });

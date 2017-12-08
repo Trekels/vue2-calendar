@@ -91,7 +91,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
   .calendar-header{
     align-items: center;
   }

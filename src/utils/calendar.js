@@ -5,13 +5,9 @@ const parseDateString = (dateString) => {
   return new Date(parts[0], (parts[1] - 1), parts[2]);
 };
 
-const limitedFilter = (arr, limit, fn) => {
+const mapForeach = (arr, fn) => {
   const length = arr.length;
-  const loopLimit = limit > length ? length : limit;
-
-  for (let i = 0; (i < length || i < loopLimit); i++) {
-    fn(arr[i], i);
-  }
+  for (let i = 0; i < length; i++) { fn(arr[i], i); }
 };
 
 const firstDateOfMonth = (date) => {
@@ -76,7 +72,7 @@ const buildCalendar = (startDate, firstDay = 1) => {
 const filterEventsForDate = (date, events, limit) => {
   let result = [];
 
-  limitedFilter(events, limit, (event, index) => {
+  mapForeach(events, (event, index) => {
     let start = parseDateString(event.start);
     let end = event.end ? parseDateString(event.end) : start;
 

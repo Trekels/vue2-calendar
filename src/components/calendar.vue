@@ -69,6 +69,9 @@
       monthChanged(start, end) {
         this.$emit('month-changed', start, end);
       },
+      dayEvents() {
+        this.$emit('day-events',)
+      }
     },
     components: {
       'calendar-body': body,
@@ -76,12 +79,14 @@
     },
     mounted() {
       this.updateHeight();
+
+      this.$calendar.eventBus.$on('day-events', this.dayEvents);
       this.$calendar.eventBus.$on('month-changed', this.monthChanged);
     }
   }
 </script>
 
-<style>
+<style lang="scss">
   .vue-calendar {
     display: grid;
     grid-template-rows: 10% 90%;
