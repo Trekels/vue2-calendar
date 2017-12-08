@@ -77,9 +77,11 @@
     },
     watch: {
       monthStart(monthStart) {
-        this.$calendar.eventBus.$emit('change-month',
+        const monthEnd = calendarJs.lastDateOfMonth(monthStart);
+
+        this.$calendar.eventBus.$emit('month-changed',
           monthStart,
-          calendarJs.lastDateOfMonth(monthStart)
+          monthEnd
         );
       }
     },

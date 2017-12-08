@@ -66,7 +66,7 @@
         let [ calendarEl ] = document.getElementsByClassName(this.wrapperClass);
         calendarEl && (calendarEl.style.height = this.height);
       },
-      changeMonth(start, end) {
+      monthChanged(start, end) {
         this.$emit('month-changed', start, end);
       },
     },
@@ -76,7 +76,7 @@
     },
     mounted() {
       this.updateHeight();
-      this.$calendar.eventBus.$on('change-month', this.changeMonth);
+      this.$calendar.eventBus.$on('month-changed', this.monthChanged);
     }
   }
 </script>

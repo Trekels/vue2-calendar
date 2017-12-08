@@ -1,3 +1,19 @@
+const parseDateString = (dateString) => {
+  let regEx = /^\d{4}-\d{2}-\d{2}$/;
+  if (!dateString.match(regEx)) return new Date(dateString);
+  let parts = dateString.split('-');
+  return new Date(parts[0], (parts[1] - 1), parts[2]);
+};
+
+const limitedFilter = (arr, limit, fn) => {
+  const length = arr.length;
+  const loopLimit = limit > length ? length : limit;
+
+  for (let i = 0; (i < length || i < loopLimit); i++) {
+    fn(arr[i], i);
+  }
+};
+
 const firstDateOfMonth = (date) => {
   if (!date) date = new Date();
   return new Date(date.getFullYear(), date.getMonth(), 1);
@@ -57,22 +73,19 @@ const buildCalendar = (startDate, firstDay = 1) => {
   return calendar;
 };
 
-const filterEventsByDate = (date, events, showLimit) => {
-  return events.filter(day => {
-    let start = parseDateString(day.start);
-    let end = day.end ? parseDateString(day.end) : start;
+const filterEventsForDate = (date, events, limit) => {
+  let result = [];
 
-    parseDateString(day.start);
+  limitedFilter(events, limit, (event, index) => {
+    let start = parseDateString(event.start);
+    let end = event.end ? parseDateString(event.end) : start;
 
-    return (date.getTime() <= end.getTime() && date.getTime() >= start.getTime());
+    if (date.getTime() <= end.getTime() && date.getTime() >= start.getTime()) {
+      result.push(event);
+    }
   });
-};
 
-const parseDateString = (dateString) => {
-  let regEx = /^\d{4}-\d{2}-\d{2}$/;
-  if (!dateString.match(regEx)) return new Date(dateString);
-  let parts = dateString.split('-');
-  return new Date(parts[0], (parts[1] - 1), parts[2]);
+  return result.length ? result : false;
 };
 
 const dateOccursIn = (date, daysObj) => {
@@ -92,5 +105,5 @@ export default {
   buildCalendar,
   lastDateOfMonth,
   firstDateOfMonth,
-  filterEventsByDate
+  filterEventsForDate
 };

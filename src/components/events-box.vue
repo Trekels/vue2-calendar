@@ -4,13 +4,12 @@
       :key="index"
       class="events-container"
       v-for="(event, index) in events"
-      @click.stop="eventClick(event)"
     >
       <div class="event">
         {{ event.title }}
       </div>
     </div>
-    <p class="more-link" @click.stop="selectDay">
+    <p v-if="more" class="more-link" @click.stop="showMore">
       {{ showMoreLabel }}
     </p>
   </div>
@@ -26,6 +25,10 @@
   		events: {
   			type: Array,
         required: true
+      },
+      more: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -33,17 +36,15 @@
         dayEvents: this.events
       };
     },
-    computed: {
-    },
     watch: {
       events(events) {
         this.dayEvents = events;
-      },
-      day(date) {
-        this.date = date;
       }
     },
     methods: {
+      showMore() {
+
+      }
     }
   }
 </script>

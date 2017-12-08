@@ -21,9 +21,9 @@
 
           <events-box 
             v-if="dayEvents = getEventsForDay(day.date)"
-            :events="dayEvents"
+            :events="dayEvents.list"
+            :more="dayEvents.more"
           ></events-box>
-
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@ export default {
       return this.$calendar.firstDay;
     },
     showLimit() {
-      this.$calendar.showLimit;
+      return this.$calendar.showLimit;
     },
     calendar() {
       if (this.monthStart) {
@@ -74,7 +74,12 @@ export default {
   },
   methods: {
     getEventsForDay(date) {
-      return calendarJs.filterEventsByDate(date, this.events, this.showLimit);
+      const events = calendarJs.filterEventsForDate(date, this.events, (this.showLimit + 1));
+
+      return !events ? false : {
+        list: events.slice(0, this.showLimit),
+        more: (events.length > this.showLimit)
+      };
     },
     dayClasses(day) {
       return this.activeKeys({
@@ -113,7 +118,7 @@ export default {
     'events-box': eventsBox
   },
   mounted() {
-    this.$calendar.eventBus.$on('change-month', newMonth => this.monthStart = newMonth);
+    this.$calendar.eventBus.$on('month-changed', newMonth => this.monthStart = newMonth);
   }
 }
 </script>
