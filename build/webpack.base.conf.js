@@ -18,19 +18,15 @@ module.exports = {
     }
   },
   module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          extractCSS: process.env.NODE_ENV === 'production'
-        }
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: [resolve('src')]
-      }
-    ]
+    rules: [{
+      test: /\.vue$/,
+      loader: 'vue-loader',
+      options: {
+        extractCSS: process.env.NODE_ENV === 'production'
+      }}, {
+      test: /\.js$/,
+      loader: 'babel-loader',
+      include: [resolve('src')]
+    }]
   }
 };

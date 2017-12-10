@@ -4,6 +4,6 @@ export default {
   locale: 'en',
   fullDayNames: false,
   fullMonthNames: false,
-  moreText: 'show more',
-  class: 'vue-calendar'
+  class: 'vue-calendar',
+  componentName: 'vue-calendar'
 };

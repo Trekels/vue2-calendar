@@ -24,5 +24,6 @@ module.exports = merge(baseWebpackConfig, {
         warnings: false
       },
       sourceMap: true
-    })]
+    })
+  ]
 });

@@ -7,6 +7,7 @@
     @month-changed="monthChanged"
   ></vue-calendar>
 </template>
+
 <script>
   import dataGenerator from './data/data-generator';
 
@@ -48,6 +49,9 @@
       eventClicked(...args) {
         console.log('EventClickEvent:', args);
       }
+    },
+    mounted() {
+      
     }
   }
 </script>

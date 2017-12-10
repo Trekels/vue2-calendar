@@ -14,7 +14,7 @@ function install(Vue, options = {}) {
 
   Vue.prototype.$calendar = Object.assign(calendar, calendarOptions);
 
-  Vue.component('vue-calendar', calendarComponent);
+  Vue.component(calendarOptions.componentName, calendarComponent);
 }
 
 export default install;

@@ -69,8 +69,8 @@
       monthChanged(start, end) {
         this.$emit('month-changed', start, end);
       },
-      dayEvents() {
-        this.$emit('day-events',)
+      dayEvents(events) {
+        this.$emit('day-events', events);
       }
     },
     components: {

@@ -17,10 +17,6 @@ const languages = {
 
 export default {
   getTranslation(locale) {
-    if (languages.hasOwnProperty(locale)) {
-      return languages[locale];
-    }
-
-    return languages.en;
+    return languages.hasOwnProperty(locale) ? languages[locale] : languages.en;
   }
 };
