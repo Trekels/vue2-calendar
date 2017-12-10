@@ -4,6 +4,8 @@
     :events="events"
     :disable="disabledDays"
     :highlight="highlightDays"
+
+    @day-events="dayEvents"
     @month-changed="monthChanged"
   ></vue-calendar>
 </template>
@@ -39,19 +41,21 @@
       }
     },
     methods: {
+      dayEvents(events) {
+        console.log('[ROOT] day-events:', events);
+      },
       monthChanged(start, end) {
-        this.monthStart = start;
         this.monthEnd = end;
-      },
-      dayClicked(...args) {
-        console.log('DayClickEvent:', args);
-      },
-      eventClicked(...args) {
-        console.log('EventClickEvent:', args);
+        this.monthStart = start;
+
+        console.log('[ROOT] month-change:', { end, start });
       }
     },
     mounted() {
-      
+      this.$calendar.eventBus.$on('day-events', events => { console.log('[BUS] day-events:', events); });
+      this.$calendar.eventBus.$on('day-clicked', events => { console.log('[BUS] day-clicked:', events); });
+      this.$calendar.eventBus.$on('event-clicked', event => { console.log('[BUS] event-clicked:', event); });
+      this.$calendar.eventBus.$on('month-changed', (start, end) => { console.log('[BUS] month-changed:', {start, end}); });
     }
   }
 </script>

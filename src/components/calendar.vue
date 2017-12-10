@@ -65,12 +65,6 @@
       updateHeight() {
         let [ calendarEl ] = document.getElementsByClassName(this.wrapperClass);
         calendarEl && (calendarEl.style.height = this.height);
-      },
-      monthChanged(start, end) {
-        this.$emit('month-changed', start, end);
-      },
-      dayEvents(events) {
-        this.$emit('day-events', events);
       }
     },
     components: {
@@ -80,8 +74,8 @@
     mounted() {
       this.updateHeight();
 
-      this.$calendar.eventBus.$on('day-events', this.dayEvents);
-      this.$calendar.eventBus.$on('month-changed', this.monthChanged);
+      this.$calendar.eventBus.$on('day-events', evenst => this.$emit(events));
+      this.$calendar.eventBus.$on('month-changed', (start, end) => this.$emit('month-changed', start, end));
     }
   }
 </script>
