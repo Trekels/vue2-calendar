@@ -1,10 +1,3 @@
-const parseDateString = (dateString) => {
-  let regEx = /^\d{4}-\d{2}-\d{2}$/;
-  if (!dateString.match(regEx)) return new Date(dateString);
-  let parts = dateString.split('-');
-  return new Date(parts[0], (parts[1] - 1), parts[2]);
-};
-
 const mapForeach = (arr, fn) => {
   const length = arr.length;
   for (let i = 0; i < length; i++) { fn(arr[i], i); }
@@ -73,8 +66,8 @@ const filterEventsForDate = (date, events, limit) => {
   let result = [];
 
   mapForeach(events, (event, index) => {
-    let start = parseDateString(event.start);
-    let end = event.end ? parseDateString(event.end) : start;
+    let start = new Date(event.start);
+    let end = event.end ? new Date(event.end) : start;
 
     if (date.getTime() <= end.getTime() && date.getTime() >= start.getTime()) {
       result.push(event);

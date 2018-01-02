@@ -8,6 +8,7 @@ Vue.use(calendar, {
   firstDay: 1
 });
 
+/* eslint-disable no-new */
 new Vue({
   el: '#app',
   render: h => h(App),

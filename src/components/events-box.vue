@@ -11,7 +11,7 @@
         {{ event.title }}
       </div>
     </div>
-    <span v-if="more" class="more-link" @click.stop="showAll">
+    <span v-if="more" class="more-link" @click.stop="showAll()">
       {{ showMoreLabel }}
     </span>
   </div>
@@ -45,7 +45,7 @@
         this.$calendar.eventBus.$emit('event-clicked', event);
       },
       showAll() {
-        this.$calendar.eventBus.$emit('day-events', this.events);
+        this.$calendar.eventBus.$emit('show-all', this.events);
       }
     }
   }

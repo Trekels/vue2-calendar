@@ -74,7 +74,7 @@
     mounted() {
       this.updateHeight();
 
-      this.$calendar.eventBus.$on('day-events', evenst => this.$emit(events));
+      this.$calendar.eventBus.$on('day-events', evenst => this.$emit('', events));
       this.$calendar.eventBus.$on('month-changed', (start, end) => this.$emit('month-changed', start, end));
     }
   }

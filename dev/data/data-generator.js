@@ -1,42 +1,32 @@
 export default {
-  mockEvents(monthStart, monthEnd) {
-    let year = monthEnd.getFullYear();
-    let month = monthEnd.getMonth();
-    let events = [];
-
-    let amountOfEvents = getRandomNumber(15);
-    while (amountOfEvents--) {
-      let day = getRandomNumber(monthEnd.getDate());
-      events.push(newEvent('testEvent', new Date(year, month, day)));
-    }
-
-    return events;
-  },
   mockDays(monthStart, monthEnd) {
-    let year = monthEnd.getFullYear();
-    let month = monthEnd.getMonth();
-    let days = [];
+    const dates = mapRandomDates(monthStart, (date) => { return date; });
 
-    let amountOfDays = getRandomNumber(5);
-    while (amountOfDays--) {
-      let day = getRandomNumber(monthEnd.getDate());
-      days.push((new Date(year, month, day)));
-    }
-
-    return {
-      dates: days
-    };
-  }
+    return { dates };
+  },
+  mockEvents: (monthStart, monthEnd) =>
+    mapRandomDates(monthStart, (date) => newEvent('testEvent', date))
 };
 
-function newEvent(title, start, end) {
-  return {
-    title: title,
-    start: start.getFullYear() + '-' + (start.getMonth() + 1) + '-' + start.getDate(),
-    end: end
-  };
-}
+const mapRandomDates = (date, fn, limit = 15) => {
+  let result = [];
+  const month = date.getMonth();
+  const year = date.getFullYear();
 
-function getRandomNumber(upper) {
-  return Math.floor(Math.random() * (upper - 1 + 1)) + 1;
-}
+  let amount = getRandomNumber(limit);
+  while (amount--) {
+    const day = getRandomNumber(28);
+    result.push(fn(new Date(year, month, day)));
+  }
+
+  return result;
+};
+
+const newEvent = (title, start = null, end = null) => ({
+  title,
+  start: start ? start.toString() : null,
+  end: end ? end.toString() : null
+});
+
+const getRandomNumber = (upper) =>
+  Math.floor(Math.random() * (upper - 1 + 1)) + 1;
