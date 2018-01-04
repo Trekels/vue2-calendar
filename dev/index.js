@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import App from './App.vue';
 import calendar from '../src//index';
+import nl from './data/language-nl';
 
 Vue.config.productionTip = false;
 
 Vue.use(calendar, {
-  firstDay: 1
+  firstDay: 1,
+  locale: 'nl',
+  languages: { nl }
 });
 
 /* eslint-disable no-new */

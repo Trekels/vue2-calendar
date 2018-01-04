@@ -7,6 +7,10 @@ import calendarComponent from './components/calendar.vue';
 function install(Vue, options = {}) {
   const calendarOptions = Object.assign(defaults, options);
 
+  if (options.languages) {
+    languages.addLanguage(options.languages);
+  }
+
   const calendar = {
     eventBus: new Vue(),
     translations: languages.getTranslation(calendarOptions.locale)
