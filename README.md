@@ -3,12 +3,16 @@
 [![npm](https://img.shields.io/npm/v/vue2-simple-calendar.svg?maxAge=2592000?style=flat-square)]() [![npm](https://img.shields.io/npm/dt/vue2-simple-calendar.svg?maxAge=2592000?style=flat-square)]()
 
 ### Introduction
-This is a simple and small event calendar component for Vue js. It is very lightweight and does not depend on external libraries apart from Vue2.
+This is a simple and small event calendar component for Vue js. It is very lightweight and does not depend on external libraries apart from Vue2 obviously.
 
 ### Table of contents
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [Configuration](#configuration)
+  * [Installation](#Installation)
+  * [Usage](#Usage)
+  * [Configuration](#Configuration)
+  * Detailed
+  * [Events](./docs/events.md)
+    * [Event payload](./docs/events.md#Payload)
+    * [EventBus usage](./docs/events.md#EventBus)
 
 ### Installation
 Add the package to your project.
