@@ -1,6 +1,5 @@
 <template>
   <vue-calendar
-    :show-limit="3"
     :events="events"
     :disable="disabledDays"
     :highlight="highlightDays"
