@@ -7,7 +7,7 @@ Vue.config.productionTip = false;
 
 Vue.use(calendar, {
   firstDay: 1,
-  locale: 'nl',
+  locale: 'zh',
   languages: { nl }
 });
 
