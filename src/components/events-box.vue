@@ -1,74 +1,74 @@
 <template>
   <div class="events">
-    <div class="events-container" :class="eventClasses(event)"
-         v-for="(event, index) in events"
-         v-show="index <= (showLimit - 1)"
-         @click.stop="eventClick(event)"
+    <div 
+      :key="index"
+      class="event"
+      :class="event.classes"
+      @click.stop="eventClicked(event)"
+      v-for="(event, index) in eventList"
     >
-    <div class="event"> {{ event.title }} </div>
+      <div class="event-title">
+        {{ event.title }}
+      </div>
     </div>
-    <p v-if="events.length > showLimit" class="more-link" @click.stop="selectDay">
-      {{ moreText }}
-    </p>
+    <span v-if="more" class="more-link" @click.stop="showAll()">
+      {{ showMoreLabel }}
+    </span>
   </div>
 </template>
+
 <script>
-  import languages from '../utils/languages';
+  import i18nMixin from '../mixins/i18n';
 
   export default {
+    name: 'events-box',
+    mixins: [ i18nMixin ],
   	props: {
   		events: {
   			type: Array,
-        default: () => []
-      },
-      showLimit: {
-  			type: Number,
-        default: 3
-      },
-      locale: {
-  			type: String,
-        default: 'en'
+        required: true
       }
     },
-    computed: {
-  		moreText: function () {
-  			return languages[this.locale].showMore;
+    computed:{
+      showLimit() {
+        return this.$calendar.showLimit;
+      },
+      eventList() {
+        return this.events.slice(0, this.showLimit);
+      },
+      more() {
+        return this.events.length > this.showLimit;
       }
     },
     methods: {
-  		eventClick: function(event) {
-  			this.$emit('eventClicked', event);
+      eventClicked(event) {
+        this.$calendar.eventBus.$emit('event-clicked', event);
       },
-	    eventClasses: function (event) {
-		    return event.class ? event.class : '';
-	    },
-      selectDay: function() {
-        this.$emit('showMore', this.events);
+      showAll() {
+        this.$calendar.eventBus.$emit('show-all', this.events);
       }
     }
   }
 </script>
 
-<style>
-  .event{
+<style lang="scss">
+  .events {
+    font-size: 12px;
     cursor: pointer;
-    font-size:12px;
-    margin-bottom:2px;
-    color: rgba(0,0,0,.87);
-    padding:0 0 0 4px;
-    height: 18px;
-    line-height: 18px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    background-color: rgb(212,220,236);
-    margin-left: 4px;
-  }
-  .more-link{
-    cursor: pointer;
-    padding-left: 8px;
-    padding-right: 2px;
-    color: rgba(0,0,0,.38);
-    font-size: 14px;
+    padding: 0 0 0 4px;
+
+    .event{
+      height: 18px;
+      line-height: 18px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin: 0 4px 2px 0;
+      color: rgba(0,0,0,.87);
+      background-color: rgb(212,220,236);
+    }
+    .more-link{
+      color: rgba(0,0,0,.38);
+    }
   }
 </style>

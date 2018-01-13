@@ -7,8 +7,8 @@ const config = require('../config/dev.env');
 const baseWebpackConfig = require('./webpack.base.conf');
 
 // add hot-reload related code to entry chunks
-Object.keys(baseWebpackConfig.entry).forEach(function (name) {
-  baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
+Object.keys(baseWebpackConfig.entry).forEach((name) => {
+  baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name]);
 });
 
 module.exports = merge(baseWebpackConfig, {
@@ -17,16 +17,16 @@ module.exports = merge(baseWebpackConfig, {
   },
   devtool: '#cheap-module-eval-source-map',
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new FriendlyErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': config.dev.env.NODE_ENV
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
       filename: 'index.html',
       template: 'index.dev.html'
-    }),
-    new FriendlyErrorsPlugin()
+    })
   ]
 });

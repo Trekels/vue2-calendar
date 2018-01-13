@@ -5,7 +5,7 @@ module.exports = {
       NODE_ENV: '"development"'
     },
     server: {
-      port: 8080,
+      port: 8080
     }
   }
 };

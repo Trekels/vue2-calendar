@@ -1,7 +1,7 @@
 const hotClient = require('webpack-hot-middleware/client?noInfo=true&reload=true');
 
-hotClient.subscribe(function (event) {
+hotClient.subscribe((event) => {
   if (event.action === 'reload') {
-    window.location.reload()
+    window.location.reload();
   }
 });
