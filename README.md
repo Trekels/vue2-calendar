@@ -83,3 +83,6 @@ parent but are available through the complete application trough an event bus.
   }
 </script>
 ```
+
+Check out the demo here on Code Sandbox:
+[![Edit Vue Template](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/93pjr734r4)
