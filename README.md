@@ -77,7 +77,7 @@ parent but are available through the complete application trough an event bus.
     created() {
       this.$calendar.eventBus.$on('show-all', events => showAll(events));
       this.$calendar.eventBus.$on('day-clicked', day =>  dayClicked(day));
-      this.$calendar.eventBus.$on('event-clicked', event => eventClicked(event);
+      this.$calendar.eventBus.$on('event-clicked', event => eventClicked(event));
       this.$calendar.eventBus.$on('month-changed', (start, end) => monthChanged(start, end));
     }
   }
