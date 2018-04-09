@@ -42,6 +42,13 @@ export default {
       dayNameLong: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
       monthNameShort: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
       monthNameLong: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+    },
+    fr: {
+      showMore: 'Afficher plus',
+      dayNameShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+      dayNameLong: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+      monthNameShort: ['Jan.', 'Fév.', 'Mar.', 'Avr.', 'Mai', 'Juin', 'Juil', 'Aou.', 'Sep.', 'Oct.', 'Nov.', 'Déc.'],
+      monthNameLong: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
     }
   }
 };
