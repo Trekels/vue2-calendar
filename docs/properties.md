@@ -23,7 +23,7 @@ Events to be displayed on the calendar.
     start    : Date,
     end      : Date,
     title    : 'FooEvent',
-    class    : 'testClass'
+    classes  : ['testClass']
   },
 ]
 ```
