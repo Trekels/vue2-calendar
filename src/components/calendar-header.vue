@@ -48,7 +48,7 @@
       },
       isPrevMonthDisabled() {
         if (this.hasDisabledPeriod || !this.disable.hasOwnProperty('to')) {
-          return false; 
+          return false;
         }
 
         return (this.disable.to.getMonth() >= this.monthStart.getMonth()) &&
@@ -74,6 +74,9 @@
           this.monthStart = calendarJs.shiftMonth(this.monthStart, -1);
         }
       },
+      goToDate(date) {
+        this.monthStart = calendarJs.firstDateOfMonth(date);
+      },
     },
     watch: {
       monthStart(monthStart) {
@@ -87,6 +90,7 @@
     },
     created() {
       this.monthStart = calendarJs.firstDateOfMonth();
+      this.$calendar.eventBus.$on('go-to-date', (date) => this.goToDate(date));
     }
   }
 </script>
