@@ -19,9 +19,10 @@
             {{ day.monthDay }}
           </div>
 
-          <events-box 
+          <events-box
             v-if="dayEvents = getEventsForDay(day.date)"
             :events="dayEvents"
+            :display-show-more-count="displayShowMoreCount"
           ></events-box>
         </div>
       </div>
@@ -49,6 +50,10 @@ export default {
     highlight: {
       type: Object,
       required: true
+    },
+    displayShowMoreCount: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

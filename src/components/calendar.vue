@@ -9,6 +9,7 @@
       :events="calendarEvents"
       :disable="disabledDays"
       :highlight="highlightedDays"
+      :display-show-more-count="displayShowMoreCount"
     >
     </calendar-body>
   </div>
@@ -36,6 +37,10 @@
       height: {
         type: String,
         default: '500px'
+      },
+      displayShowMoreCount: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
