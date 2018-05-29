@@ -10,6 +10,7 @@ Data can be passed to the component through properties on the root component.
 | height                | String          | '500px'     | Height of the calendar                                        |
 | disabled              | Object          | {}          | View the [disabled](#disabled) settings obj                   |
 | highlighted           | Object          | {}          | View the [highlighted](#highlighted) settings obj             |
+| displayShowMoreCount  | Boolean         | false       | Weather the count of remaining events should be displayed     |
 
 ## Config properties
 
@@ -59,3 +60,6 @@ highlight: {
         ]
     }
 ```
+
+### displayShowMoreCount
+Displays the number of events above the `showLimit` before the showMore link.
