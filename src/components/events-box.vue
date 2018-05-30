@@ -1,6 +1,6 @@
 <template>
   <div class="events">
-    <div 
+    <div
       :key="index"
       class="event"
       :class="event.classes"
@@ -12,6 +12,7 @@
       </div>
     </div>
     <span v-if="more" class="more-link" @click.stop="showAll()">
+      <template v-if="displayShowMoreCount">{{ showMoreCount }}</template>
       {{ showMoreLabel }}
     </span>
   </div>
@@ -27,6 +28,10 @@
   		events: {
   			type: Array,
         required: true
+      },
+      displayShowMoreCount: {
+        type: Boolean,
+        default: false
       }
     },
     computed:{
@@ -38,6 +43,13 @@
       },
       more() {
         return this.events.length > this.showLimit;
+      },
+      /**
+       * Returns the number of remaining events over the show limit.
+       * @return {Number}
+       */
+      showMoreCount() {
+        return this.events.length - this.showLimit;
       }
     },
     methods: {
