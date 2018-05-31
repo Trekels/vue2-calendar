@@ -2,6 +2,9 @@
 
 [![npm](https://img.shields.io/npm/v/vue2-simple-calendar.svg?maxAge=2592000?style=flat-square)]() [![npm](https://img.shields.io/npm/dt/vue2-simple-calendar.svg?maxAge=2592000?style=flat-square)]()
 
+Check out the demo here on Code Sandbox:
+[![Edit Vue Template](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/93pjr734r4)
+
 ### Introduction
 This is a simple and small event calendar component for Vue js. It is very lightweight and does not depend on external libraries apart from Vue2 obviously.
 
@@ -83,6 +86,3 @@ parent but are available through the complete application trough an event bus.
   }
 </script>
 ```
-
-Check out the demo here on Code Sandbox:
-[![Edit Vue Template](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/93pjr734r4)
