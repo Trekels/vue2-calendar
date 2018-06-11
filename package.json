@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "Trekels Vincent",
   "name": "vue2-simple-calendar",
   "main": "dist/vue-calendar.js",
