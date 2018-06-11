@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import App from './App.vue';
-import calendar from '../src//index';
+import calendar from '../src/index';
 import nl from './data/language-nl';
 
 Vue.config.productionTip = false;
 
 Vue.use(calendar, {
   firstDay: 1,
-  locale: 'zh',
+  locale: 'en',
   languages: { nl }
 });
 

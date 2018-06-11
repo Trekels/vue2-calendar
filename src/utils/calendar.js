@@ -62,14 +62,17 @@ const buildCalendar = (startDate, firstDay = 1) => {
   return calendar;
 };
 
-const filterEventsForDate = (date, events, limit) => {
+const filterEventsForDate = (date, events) => {
   let result = [];
 
-  mapForeach(events, (event, index) => {
-    let start = new Date(event.start);
-    let end = event.end ? new Date(event.end) : start;
+  mapForeach(events, (event) => {
+    const start = new Date(event.start);
+    const end = event.end ? new Date(event.end) : start;
 
-    if (date.getTime() <= end.getTime() && date.getTime() >= start.getTime()) {
+    const dateStart = (new Date(date.getTime())).setHours(0,0,0,0);
+    const dateEnd = (new Date(date.getTime())).setHours(23,59,59,999);
+
+    if (start.getTime() >= dateStart && end.getTime() <= dateEnd) {
       result.push(event);
     }
   });
