@@ -42,8 +42,7 @@ Now all is in place to use the component.
 
 ### Usage
 
-The component is used like shown below. Page specific config and data is passed trough properties, the app level config like locale ,firstDay ,... can be configured on initialization trough the config object. All events can be bound to the 
-parent but are available through the complete application trough an event bus.
+The component is used as shown below. Page specific config and data is passed through properties, the app level config such as `locale`, `firstDay`, ... can be configured on initialization through the config object. All events can be bound to the parent but are available through the complete application through an event bus.
 
 ```html
 <template>
