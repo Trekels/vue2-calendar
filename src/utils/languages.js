@@ -5,19 +5,25 @@ export default {
     return this.languages.hasOwnProperty(locale) ? this.languages[locale] : this.languages.en;
   },
   addLanguage(languages) {
+    if (!languages) { 
+      return
+    }
+
     // validate the passed lang objects (returns list with valid keys)
     const valid = validateLanguage(languages);
-
+    
     // Add valid languages to the lang set.
-    this.languages = Object.assign(
-      this.languages,
-      Object.keys(languages)
-        .filter(key => valid.indexOf(key) !== -1)
-        .reduce((obj, key) => {
-          obj[key] = languages[key];
-          return obj;
-        }, {})
-    );
+    if (valid) {
+      this.languages = Object.assign(
+        this.languages,
+        Object.keys(languages)
+          .filter(key => valid.indexOf(key) !== -1)
+          .reduce((obj, key) => {
+            obj[key] = languages[key];
+            return obj;
+          }, {})
+      )
+    }
   },
 
   // Default app languages
