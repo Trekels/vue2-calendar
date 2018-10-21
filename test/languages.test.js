@@ -27,7 +27,7 @@ describe('Method addLanguage', () => {
 
   it('Invalid language parameter passed', () => { 
     validateLanguageModule.default = jest.fn()
-    expect(languagesModule.addLanguage('abc'))
+    languagesModule.addLanguage('abc')
     expect(validateLanguageModule.default).toHaveBeenCalledWith('abc')
   })
 
