@@ -128,7 +128,7 @@ export default {
 
   .days-header {
     display: grid;
-    grid-auto-columns: 14.25%;
+    grid-auto-columns: 14.2857142857%;
     grid-template-areas: "a a a a a a a";
 
     border-top:1px solid #e0e0e0;
@@ -156,7 +156,7 @@ export default {
     display: grid;
     grid-template-areas: "a a a a a a a";
     grid-row-gap: 5px;
-    grid-auto-columns: 14.25%;
+    grid-auto-columns: 14.2857142857%;
   }
 
   .week-row{
@@ -182,4 +182,3 @@ export default {
     color: red;
   }
 </style>
-
