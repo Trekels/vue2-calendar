@@ -24,6 +24,7 @@ Events to be displayed on the calendar.
     start    : Date,
     end      : Date,
     title    : 'FooEvent',
+    subtitle : '3:00pm - 4:30pm' (optional)
     classes  : ['testClass']
   },
 ]
