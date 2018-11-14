@@ -41,13 +41,6 @@ export default {
       default: false
     }
   },
-  created () {
-    for (let event of this.events) {
-      if (event.subtitle) {
-        event.classes ? event.classes.push('event-long') : event.classes = ['event-long']
-      }
-    }
-  },
   computed: {
     showLimit () {
       return this.$calendar.showLimit
@@ -84,18 +77,12 @@ export default {
     padding: 0 0 0 4px;
 
     .event {
-      height: 18px;
-      line-height: 18px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      padding: 3px;
+      line-height: 1.3;
       margin: 0 4px 2px 0;
       color: rgba(0,0,0,.87);
       background-color: rgb(212,220,236);
-    }
-
-    .event-long {
-      height: 36px;
+      overflow: hidden;
     }
 
     .more-link{
